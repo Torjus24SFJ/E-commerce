@@ -4,8 +4,9 @@ function App() {
 
   return (
     <>
-    <main className=""></main>
+    <main className="m-10">
     <ProductList />
+    </main>
     </>
   )
 }

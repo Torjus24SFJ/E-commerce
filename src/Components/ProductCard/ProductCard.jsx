@@ -1,12 +1,12 @@
-const ProductCard = ({ name, description, rating, image, price, stock }) => {
+const ProductCard = ({ name, description, rating, price, stock, img }) => {
     const handleAddToCart = () => {
 
     }
     return (
         <>
-        <div className="product-card">
-            <img src={image} alt="missing product image" />
-            <h3>{name}</h3>
+        <div className="product-card p-[10px]">
+            <img src={img} alt={`${name} image`} className="w-[240px]"/>
+            <h3 className="">{name}</h3>
             <p>{description}</p>
             <div>{rating}</div>
             <p>{price}</p>

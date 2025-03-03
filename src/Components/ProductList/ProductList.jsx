@@ -2,16 +2,34 @@ import ProductCard from "../ProductCard/ProductCard";
 
 const products = [
     {
-        id: 1, name: 'Product-1', img: './assets/placeholder_products.png', description: 'Description of product goes here', stock: 10, price: 0
+        id: 1, name: 'Product-1', img: '/assets/placeholder_products.png', description: 'Description of product goes here', stock: 10, price: 0
     },
     {
-        id: 2, name: 'Product-2', img: './assets/placeholder_products.png', description: 'Description of product goes here', stock: 10, price: 0
+        id: 2, name: 'Product-2', img: '/assets/placeholder_products.png', description: 'Description of product goes here', stock: 10, price: 0
+    },
+    {
+        id: 3, name: 'Product-3', img: '/assets/placeholder_products.png', description: 'Description of product goes here', stock: 10, price: 0
+    },
+    {
+        id: 4, name: 'Product-4', img: '/assets/placeholder_products.png', description: 'Description of product goes here', stock: 10, price: 0
+    },
+    {
+        id: 5, name: 'Product-5', img: '/assets/placeholder_products.png', description: 'Description of product goes here', stock: 10, price: 0
+    },
+    {
+        id: 6, name: 'Product-6', img: '/assets/placeholder_products.png', description: 'Description of product goes here', stock: 10, price: 0
+    },
+    {
+        id: 7, name: 'Product-7', img: '/assets/placeholder_products.png', description: 'Description of product goes here', stock: 10, price: 0
+    },
+    {
+        id: 8, name: 'Product-8', img: '/assets/placeholder_products.png', description: 'Description of product goes here', stock: 10, price: 0
     },
 ]
 
 const ProductList = () => {
     return (
-        <div className="product-list">
+        <div className="product-list grid grid-cols-4 gap-4">
         {products.map(product => (
             <ProductCard key={product.id} {...product}/>
         ))}
