@@ -5,7 +5,7 @@ const ProductCard = ({ name, description, rating, image, price, stock }) => {
     return (
         <>
         <div className="product-card">
-            <img src={image} alt="product" />
+            <img src={image} alt="missing product image" />
             <h3>{name}</h3>
             <p>{description}</p>
             <div>{rating}</div>
