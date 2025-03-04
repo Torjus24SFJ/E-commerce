@@ -1,18 +1,30 @@
-import { Layout } from "./Components/Layout/Layout"
-import ProductList from "./Components/ProductList/ProductList"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import { Layout } from "./Components/Layout/Layout";
+import ProductList from "./Components/ProductList/ProductList";
+import Cartpage from "./Components/Cartpage/Cartpage";
 
 function App() {
   const [cartCount, setCartCount] = useState(0);
-  console.log("Cart: ", cartCount)
+  // console.log("Cart: ", cartCount);
 
   return (
-    <Layout cartCount={cartCount}>
-    <main className="md:p-24 sm:p-12 p-8 grid gap-30">
-    <ProductList setCartCount={setCartCount}/>
-    </main>
-    </Layout>
-  )
+    <Router>
+      <Layout cartCount={cartCount}>
+        <Routes>
+          <Route
+            path="/"
+            element={<ProductList setCartCount={setCartCount} />}
+          />
+          <Route path="cart" element={<Cartpage cartCount={cartCount} />} />
+        </Routes>
+      </Layout>
+    </Router>
+  );
 }
 
-export default App
+export default App;
+
+//!TODO Add stock limit on items
+//!TODO Media queries
+//!TODO Trending items, deals, top sellers etc
