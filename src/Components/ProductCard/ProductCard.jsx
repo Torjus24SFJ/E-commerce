@@ -1,9 +1,17 @@
 import { Rating } from "@mui/material";
+import { useEffect, useState } from "react";
 
-const ProductCard = ({ name, description, price, stock, img, rating , setCartCount}) => {
+const ProductCard = ({ name, description, price, stock, img, rating , setCartCount, checkout}) => {
+    const [addItem, setAddItem] = useState({name: name, img: img, price: price, description: description, amount: 0})
     const handleAddToCart = () => {
         setCartCount((oldCartCount) => oldCartCount + 1)
+        setAddItem(checkout.push(addItem))
     }
+    useEffect(() => {
+        console.log(checkout)
+        console.log(addItem)
+    },[checkout, addItem])
+
     return (
         <>
         <div className="product-card p-[10px] border-2 border-[#e9e9e9] rounded-[8px] bg-white text-black flex flex-col justify-between">

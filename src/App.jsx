@@ -6,7 +6,7 @@ import Cartpage from "./Components/Cartpage/Cartpage";
 
 function App() {
   const [cartCount, setCartCount] = useState(0);
-  // console.log("Cart: ", cartCount);
+  const [checkout, setCheckout] = useState([]);
 
   return (
     <Router>
@@ -14,9 +14,9 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<ProductList setCartCount={setCartCount} />}
+            element={<ProductList setCartCount={setCartCount} checkout={checkout} setCheckout={setCheckout}/>}
           />
-          <Route path="cart" element={<Cartpage cartCount={cartCount} />} />
+          <Route path="cart" element={<Cartpage cartCount={cartCount} checkout={checkout}/>} />
         </Routes>
       </Layout>
     </Router>
