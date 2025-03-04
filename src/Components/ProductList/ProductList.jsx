@@ -70,8 +70,8 @@ const products = [
       img: "/assets/Charging-pad.jpg",
       description: "Fast and efficient charging for all Qi-compatible devices.",
       stock: 20,
-      price: 49,
-      rating: 4.5,
+      price: 149,
+      rating: 3,
     },
   ];
 
