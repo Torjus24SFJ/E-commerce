@@ -1,10 +1,10 @@
 import { Navbar } from "../Navbar/Navbar";
 
-export function Layout({ children }) {
+export function Layout({ children, cartCount }) {
   return (
-    <div>
-      <Navbar />
-      <div>{children}</div>
-    </div>
+    <>
+      <Navbar cartCount={cartCount} />
+      {children}
+    </>
   );
 }

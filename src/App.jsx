@@ -4,6 +4,7 @@ import { useState } from "react";
 
 function App() {
   const [cartCount, setCartCount] = useState(0);
+  console.log("Cart: ", cartCount)
 
   return (
     <Layout cartCount={cartCount}>
