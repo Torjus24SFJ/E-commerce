@@ -77,7 +77,7 @@ const products = [
 
 const ProductList = ({ setCartCount }) => {
   return (
-    <div className="product-list grid grid-cols-4 gap-4">
+    <div className="product-list grid md:grid-cols-4 gap-4 sm:grid-cols-3">
       {products.map((product) => (
         <ProductCard key={product.id} {...product} setCartCount={setCartCount}/>
       ))}
