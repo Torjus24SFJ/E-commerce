@@ -23,7 +23,7 @@ export function Navbar({ cartCount }) {
           <Link to="/cart" className="flex gap-2">
             <li className="flex gap-2 align-baseline">
               <FaCartShopping size={20} />
-              <span className="text-[#606060]">{cartCount}</span>
+              <span className={`text-[#606060] ${cartCount > 0 ? 'text-green-500' : ''}`}>{cartCount}</span>
             </li>
           </Link>
         </ul>
