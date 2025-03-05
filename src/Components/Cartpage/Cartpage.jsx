@@ -1,28 +1,32 @@
+import { useNavigate } from "react-router-dom";
+
 const CartPage = ({ checkout }) => {
   const totalPrice = checkout.reduce(
-    (quantity, item) => quantity + item.price, 0).toLocaleString();
+    (acc, item) => acc + item.price * item.amount, 0).toLocaleString();
     //!TODO Correct price for quantity of an item
     
+    const navigation = useNavigate();
     const handleCheckOut = () => {
-      console.log("checked out")
+      navigation("/confirm")
     }
 
   return (
-    <section className="font-inter grid grid-rows-2 text-black">
-      <div className="flex flex-col justify-items-start">
+    <section className="font-inter grid grid-rows-2 place-items-center text-black">
+      <div className="flex flex-col justify-items-start w-[60%]">
         <h4 className="font-bold text-[26px]">Checkout</h4>
-        <div className="grid grid-cols-2 gap-4 p-6">
-          {checkout.map((item) => (
-            <div key={item.id} className="flex flex-col">
+        <div className="grid grid-cols-2 gap-4 p-6 ">
+          {checkout.map((item, index) => (
+            <div key={item.id+index+item.name} className="flex flex-col">
               <img
                 src={item.img}
                 alt="product-image"
-                className="w-60 h-60 p-2"
+                className="w-fit h-60 p-2"
               />
               <h4 className="font-semibold text-[16px]">{item.name}</h4>
               <p className="italic font-semibold text-[14px] text-[#64952f]">
                 {item.price} kr
               </p>
+              <p>{item.amount}</p>
             </div>
           ))}
         </div>

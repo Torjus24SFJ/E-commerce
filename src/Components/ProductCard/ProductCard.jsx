@@ -1,22 +1,30 @@
 import { Rating } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const ProductCard = ({ name, description, price, stock, img, rating , setCartCount, checkout}) => {
+const ProductCard = ({ name, description, price, stock, img, rating , setCartCount, checkout, setCheckout}) => {
     const [addItem, setAddItem] = useState({name: name, img: img, price: price, description: description, amount: 0})
     const handleAddToCart = () => {
         setCartCount((oldCartCount) => oldCartCount + 1)
-        setAddItem(checkout.push(addItem))
+        if(addItem.amount === 0) {
+            setCheckout((oldcheckout) => [...oldcheckout, addItem])
+        } 
+        addItem.amount++
     }
     useEffect(() => {
-        console.log(checkout)
-        console.log(addItem)
+        console.log("This is the checkout: ",checkout)
+        // console.log(addItem)
     },[checkout, addItem])
 
+    const navigate = useNavigate();
+    const handleViewItem = () => {
+        navigate(`/product/`, {state: {name, img, price, description, rating }})
+    }
     return (
         <>
         <div className="product-card p-[10px] border-2 border-[#e9e9e9] rounded-[8px] bg-white text-black flex flex-col justify-between">
             <div className="flex justify-center">
-            <img src={img} alt={`${name} image`} className="w-[240px] h-[192px] object-scale-down bg-white p-2"/>
+            <img src={img} alt={`${name} image`} className="w-[240px] h-[192px] object-scale-down bg-white p-2 cursor-pointer" onClick={handleViewItem}/>
             </div>
             <h3 className="font-bold text-[16px] mb-[8px]">{name}</h3>
             <p className="font-medium text-[12px] mb-[10px]">{description}</p>

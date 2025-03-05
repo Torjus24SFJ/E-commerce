@@ -4,6 +4,7 @@ const products = [
     {
       id: 1,
       name: "Wireless Noise-Canceling Headphones",
+      ref: "wireless-headphones",
       img: "/assets/Wireless_headphones.jpeg",
       description: "Immerse yourself in high-fidelity sound with active noise cancellation.",
       stock: 10,
