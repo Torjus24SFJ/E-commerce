@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ name, description, price, stock, img, rating , setCartCount, checkout, setCheckout, url}) => {
-    const [addItem, setAddItem] = useState({name: name, img: img, price: price, description: description, amount: 0})
+    const [addItem, setAddItem] = useState({name: name, img: img, price: price, description: description, amount: 0, url})
     const handleAddToCart = () => {
         setCartCount((oldCartCount) => oldCartCount + 1)
         if(addItem.amount === 0) {

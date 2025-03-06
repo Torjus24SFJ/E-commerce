@@ -19,7 +19,7 @@ function App() {
             path="/"
             element={<ProductList setCartCount={setCartCount} checkout={checkout} setCheckout={setCheckout}/>}
           />
-          <Route path="cart" element={<Cartpage cartCount={cartCount} checkout={checkout}/>} />
+          <Route path="cart" element={<Cartpage cartCount={cartCount} checkout={checkout} setCheckout={setCheckout} />} />
           <Route path="confirm" element={<ConfirmPurchase />} />
           <Route path="products/:url" element={<ItemPage item={products}/>} />
         </Routes>

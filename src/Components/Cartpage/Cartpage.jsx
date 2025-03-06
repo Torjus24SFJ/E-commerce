@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { MdCancel } from "react-icons/md";
 
-const CartPage = ({ checkout }) => {
+const CartPage = ({ checkout, setCheckout }) => {
   const totalPrice = checkout
     .reduce((acc, item) => acc + item.price * item.amount, 0)
     .toLocaleString();
@@ -11,8 +11,10 @@ const CartPage = ({ checkout }) => {
     navigation("/confirm");
   };
 
-  const handleCancelItem = () => {
-    
+  const handleCancelItem = (notparam) => {
+    const removeProduct = checkout.find((item) => item.url === notparam)
+    console.log(removeProduct)
+    setCheckout(checkout.filter((item) => item.url !== notparam) )
   }
 
   return (
@@ -40,7 +42,7 @@ const CartPage = ({ checkout }) => {
                   {item.price} kr
                 </p>
                 <div className="flex flex-row justify-end text-neutral-400 cursor-pointer">
-                  <MdCancel size={20} onClick={handleCancelItem}/>
+                  <MdCancel size={20} onClick={() => handleCancelItem(item.url)}/>
                 </div>
               </div>
             </div>
