@@ -13,7 +13,7 @@ const CartPage = ({ checkout }) => {
     <section className="font-inter grid grid-rows-2 place-items-center text-black">
       <div className="flex flex-col justify-items-start">
         <h4 className="font-bold text-[26px]">Checkout</h4>
-        <div className="grid grid-cols-2 gap-4 p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 p-6">
           {checkout.map((item, index) => (
             <div key={item.id+index+item.name} className="w-100 grid grid-rows-[250px_1fr] justify-center text-center p-4 m-8">
               <img
@@ -50,5 +50,7 @@ const CartPage = ({ checkout }) => {
 
 export default CartPage;
 
-//!TODO Set price total of all items
-//!TODO Fix multiple items not using quantity
+//!TODO Remove items from cart
+//!TODO Reduce stock when buying
+//!TODO Empty cart when checkout pressed
+//!TODO Change Quantity from cart
