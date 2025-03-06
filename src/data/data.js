@@ -27,7 +27,7 @@ export const products = [
       description: "RGB backlit keys with fast response for the ultimate gaming experience.",
       stock: 15,
       price: 599,
-      rating: 4.2,
+      rating: 4.5,
     },
     {
       id: 4,

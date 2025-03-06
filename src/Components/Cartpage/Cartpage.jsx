@@ -42,7 +42,7 @@ const CartPage = ({ checkout, setCheckout, setCartCount }) => {
                   {" "}
                   <span className="font-bold">Quantity:</span> {item.amount}
                 </p>
-                <p className="italic font-semibold text-[14px] text-[#64952f]">
+                <p className="font-semibold text-[14px] text-[#10b981]">
                   {item.price} kr
                 </p>
                 <div className="flex flex-row justify-end text-neutral-400 cursor-pointer">
@@ -57,7 +57,7 @@ const CartPage = ({ checkout, setCheckout, setCartCount }) => {
         </div>
         <div className="border-2 border-[#cbcbcb] bg-[#f1f1f1] p-8 mt-10">
           <h4 className="mb-8 font-bold">
-            Total: <span className="text-[#64952f]">{totalPrice}</span> kr
+            Total: <span className="text-[#10b981]">{totalPrice}</span> kr
           </h4>
           <p>Shipping</p>
           <p>Arrives Tue, Jul 20 - Thu, Jul 22</p>

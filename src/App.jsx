@@ -12,6 +12,8 @@ function App() {
   const [checkout, setCheckout] = useState([]);
   const [products, setProducts] = useState(initialProducts);
 
+  console.log(products)
+
   return (
     <Router>
       <Layout cartCount={cartCount}>
@@ -40,7 +42,18 @@ function App() {
             }
           />
           <Route path="confirm" element={<ConfirmPurchase />} />
-          <Route path="products/:url" element={<ItemPage item={products} />} />
+          <Route
+            path="products/:url"
+            element={
+              <ItemPage
+                products={products}
+                setCartCount={setCartCount}
+                checkout={checkout}
+                setCheckout={setCheckout}
+                setProducts={setProducts}
+              />
+            }
+          />
         </Routes>
       </Layout>
     </Router>
@@ -49,4 +62,4 @@ function App() {
 
 export default App;
 
-//!TODO Media queries
+

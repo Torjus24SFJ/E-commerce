@@ -1,29 +1,96 @@
 import { useParams } from "react-router-dom";
 import { Rating } from "@mui/material";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { useEffect, useState } from "react";
 
-export function ItemPage({ item, url }) {
-  const path = useParams(url);
-  const products = item.filter((product) => product.url === path.url);
-  console.log("This is product: ", products);
-  console.log("This is path: ", path.url);
+export function ItemPage({
+  products,
+  setCartCount,
+  setCheckout,
+  setProducts,
+  checkout,
+}) {
+  const { url } = useParams(); // Simplified
+  const correctProduct = products.filter((product) => product.url === url);
+  const [addItem, setAddItem] = useState({ ...correctProduct[0], amount: 0 }); // Fixed initialization
 
-  if (!item) return <h4 className="item not found!"></h4>;
+  console.log("This is product: ", correctProduct[0]?.url);
+  console.log("This is path: ", url);
+  console.log("Adding item: ", addItem);
+
+  useEffect(() => {
+    console.log("Stock:", correctProduct[0]?.stock);
+  }, [correctProduct]);
+
+  if (!products || correctProduct.length === 0) {
+    return <h4 className="item-not-found">Item not found!</h4>;
+  }
+
+  const handleAddToCart = () => {
+    if (correctProduct[0].stock < 1) return;
+
+    setCartCount((oldCartCount) => oldCartCount + 1);
+
+    const existingInCheckout = checkout.find((item) => item.url === url);
+    if (!existingInCheckout) {
+      setCheckout((oldCheckout) => [
+        ...oldCheckout,
+        { ...correctProduct[0], amount: 1 },
+      ]);
+    } else {
+      setCheckout((oldCheckout) =>
+        oldCheckout.map((item) =>
+          item.url === url ? { ...item, amount: item.amount + 1 } : item
+        )
+      );
+    }
+    setAddItem((prev) => ({ ...prev, amount: prev.amount + 1 }));
+
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.url === url ? { ...product, stock: product.stock - 1 } : product
+      )
+    );
+  };
 
   return (
-    <>
-      <section className="flex flex-col items-center text-black gap-4">
-        <h2 className="text-2xl font-bold">{products[0]?.name}</h2>
+    <section className="text-black flex flex-col justify-center items-center gap-4 sm-20 md:flex-row">
+      <IoIosArrowBack size={30} className="opacity-55 hover:opacity-100" />
+      <div className="w-120 h-120 flex items-center">
         <img
-          src={products[0]?.img}
-          alt={products[0]?.name}
-          className="w-fit h-80"
+          src={correctProduct[0].img}
+          alt={correctProduct[0].name}
+          className="w-fit"
         />
-        <p className="text-[24px] text-center">{products[0]?.description}</p>
-        <Rating name="half-rating" defaultValue={products[0]?.rating} precision={0.5} />
-        <p className="font-bold text-3xl">
-          <span className="text-[#64952f]">{products[0]?.price}</span> kr
+      </div>
+      <IoIosArrowForward
+        size={30}
+        className="opacity-55 hover:opacity-100 mr-8"
+      />
+      <div className="w-100 h-100 p-8 flex flex-col gap-4 justify-center">
+        <h2 className="text-[24px] font-semibold">{correctProduct[0].name}</h2>
+        <p className="text-neutral-500 text-[14px]">
+          {correctProduct[0].description}
         </p>
-      </section>
-    </>
+        <Rating
+          name="half-rating"
+          defaultValue={correctProduct[0].rating}
+          precision={0.5}
+        />
+        <p className="font-semibold text-[24px]">
+          <span className="text-[#10b981]">{correctProduct[0].price}</span> kr
+        </p>
+        <p className="text-[12px] text-gray-500 font-semibold">
+          {correctProduct[0].stock} in stock
+        </p>
+        <button
+          onClick={handleAddToCart}
+          disabled={correctProduct[0].stock === 0}
+          className="rounded-[5px] p-2 text-[12px] w-fit bg-gray-800 text-white font-semibold hover:bg-gray-700 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
+        >
+          Add to Cart
+        </button>
+      </div>
+    </section>
   );
 }

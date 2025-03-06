@@ -45,8 +45,8 @@ const ProductCard = ({
           product.url === url ? { ...product, stock: product.stock - 1 } : product
         )
       );
-
   };
+  
   useEffect(() => {
     console.log("This is the checkout: ", checkout);
     console.log(addItem);
@@ -74,7 +74,7 @@ const ProductCard = ({
             readOnly
           />
         </div>
-        <p className="font-semibold">{price} kr</p>
+        <p className="font-semibold"><span className="text-[#10b981]">{price}</span> kr</p>
         <p className="text-[12px] text-gray-500 font-semibold mb-[20px]">
           {stock} in stock
         </p>
