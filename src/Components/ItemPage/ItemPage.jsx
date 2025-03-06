@@ -16,7 +16,7 @@ export function ItemPage({ item, url }) {
         <img
           src={products[0]?.img}
           alt={products[0]?.name}
-          className="w-80 h-80"
+          className="w-fit h-80"
         />
         <p className="text-[24px] text-center">{products[0]?.description}</p>
         <Rating name="half-rating" defaultValue={products[0]?.rating} precision={0.5} />
