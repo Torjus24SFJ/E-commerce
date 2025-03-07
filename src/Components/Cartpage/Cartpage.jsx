@@ -56,7 +56,7 @@ const CartPage = ({ checkout, setCheckout, setCartCount }) => {
             </div>
           ))}
         </div>
-        <div className="border-2 border-[#cbcbcb] min-w-200 bg-[#f1f1f1] p-8 mt-10">
+        <div className="border-2 border-[#cbcbcb] sm:min-w-120 lg:min-w-150 xl:min-w-200 bg-[#f1f1f1] p-8 mt-10">
           <h4 className="mb-8 font-bold">
             Total: <span className="text-[#10b981]">{totalPrice}</span> kr
           </h4>
