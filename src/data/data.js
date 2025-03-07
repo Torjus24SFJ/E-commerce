@@ -99,8 +99,8 @@ export const products = [
       img: [
         "/assets/Charging-pad.jpg",
         "/assets/Charging-pad-slider2.png",
-        "/assets/Charging-pad-slider3.png",
-        "/assets/Charging-pad-slider4.png",
+        "/assets/Charing-pad-slider3.png",
+        "/assets/Charing-pad-slider4.png",
 
       ],
       description: "Fast and efficient charging for all Qi-compatible devices.",
