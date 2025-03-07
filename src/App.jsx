@@ -35,9 +35,12 @@ function App() {
             element={
               <Cartpage
                 cartCount={cartCount}
+                setCartCount={setCartCount}
                 checkout={checkout}
                 setCheckout={setCheckout}
-                setCartCount={setCartCount}
+                products={products}
+                setProducts={setProducts}
+                
               />
             }
           />

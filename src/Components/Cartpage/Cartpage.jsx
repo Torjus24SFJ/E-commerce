@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { MdCancel } from "react-icons/md";
 
-const CartPage = ({ checkout, setCheckout, setCartCount }) => {
+const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
   const totalPrice = checkout
     .reduce((acc, item) => acc + item.price * item.amount, 0)
     .toLocaleString();
@@ -15,16 +15,26 @@ const CartPage = ({ checkout, setCheckout, setCartCount }) => {
 
   const handleCancelItem = (remove) => {
     const removeProduct = checkout.find((item) => item.url === remove);
+    if (!removeProduct) return;
+
+    setCheckout(checkout.filter((item) => item.url !== remove));
+    setCartCount((oldCartCount) => oldCartCount - removeProduct.amount);
+
     if (removeProduct) {
-      setCheckout(checkout.filter((item) => item.url !== remove));
-      setCartCount((oldCartCount) => oldCartCount - removeProduct.amount);
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.url === removeProduct.url
+            ? { ...product, stock: product.stock + removeProduct.amount }
+            : product
+        )
+      );
     }
   };
 
   return (
     <section className="font-inter grid grid-rows-2 place-items-center text-black">
-        <h4 className="font-bold text-[34px]">Checkout</h4>
-        <hr className="text-black w-[100%]"/>
+      <h4 className="font-bold text-[34px]">Checkout</h4>
+      <hr className="text-black w-[100%]" />
       <div className="flex flex-col justify-items-start">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 p-6">
           {checkout.map((item, index) => (
@@ -80,7 +90,3 @@ const CartPage = ({ checkout, setCheckout, setCartCount }) => {
 
 export default CartPage;
 
-//!TODO Remove items from cart
-//!TODO Reduce stock when buying
-//!TODO Empty cart when checkout pressed
-//!TODO Change Quantity from cart
