@@ -73,8 +73,9 @@ export function ItemPage({
         <img
           src={correctProduct[0].img[imageIndex]}
           alt={correctProduct[0].name}
-          className="w-contain h-100"
+          className="w-cover h-100 scale-75"
         />
+        {/*!TODO Fix image scaling so its less..random*/}
       </div>
       <IoIosArrowForward
         size={30}
