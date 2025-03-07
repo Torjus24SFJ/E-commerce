@@ -10,9 +10,10 @@ export function ItemPage({
   setProducts,
   checkout,
 }) {
-  const { url } = useParams(); // Simplified
+  const { url } = useParams();
   const correctProduct = products.filter((product) => product.url === url);
-  const [addItem, setAddItem] = useState({ ...correctProduct[0], amount: 0 }); // Fixed initialization
+  const [addItem, setAddItem] = useState({ ...correctProduct[0], amount: 0 });
+  const [imageIndex, setImageIndex] = useState(0)
 
   console.log("This is product: ", correctProduct[0]?.url);
   console.log("This is path: ", url);
@@ -53,19 +54,32 @@ export function ItemPage({
     );
   };
 
+  const handleNextImage = () => {
+      setImageIndex((prev) => (prev + 1) % correctProduct[0].img.length) 
+  }
+
+  const handlePreviousImage = () => {
+      setImageIndex((prev) => prev === 0 ? correctProduct[0].img.length - 1 : prev - 1)
+  }
+
   return (
     <section className="text-black flex flex-col justify-center items-center gap-4 sm-20 md:flex-row">
-      <IoIosArrowBack size={30} className="opacity-55 hover:opacity-100" />
+      <IoIosArrowBack 
+      size={30} 
+      className="opacity-55 hover:opacity-100 cursor-pointer"
+      onClick={handlePreviousImage}
+      />
       <div className="w-120 h-120 flex items-center">
         <img
-          src={correctProduct[0].img}
+          src={correctProduct[0].img[imageIndex]}
           alt={correctProduct[0].name}
           className="w-fit"
         />
       </div>
       <IoIosArrowForward
         size={30}
-        className="opacity-55 hover:opacity-100 mr-8"
+        className="opacity-55 hover:opacity-100 cursor-pointer"
+        onClick={handleNextImage}
       />
       <div className="w-100 h-100 p-8 flex flex-col gap-4 justify-center">
         <h2 className="text-[24px] font-semibold">{correctProduct[0].name}</h2>

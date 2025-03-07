@@ -32,7 +32,7 @@ const CartPage = ({ checkout, setCheckout, setCartCount }) => {
               className="w-100 grid grid-rows-[250px_1fr] justify-center text-center p-4 m-8"
             >
               <img
-                src={item.img}
+                src={item.img[0]}
                 alt="product-image"
                 className="w-full h-full object-contain p-2"
               />

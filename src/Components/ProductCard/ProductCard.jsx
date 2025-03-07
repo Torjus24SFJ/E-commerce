@@ -58,7 +58,7 @@ const ProductCard = ({
         <div className="flex justify-center">
           <Link to={`/products/${url}`}>
             <img
-              src={img}
+              src={img[0]}
               alt={`${name} image`}
               className="w-[240px] h-[192px] object-scale-down bg-white p-2 cursor-pointer"
             />
