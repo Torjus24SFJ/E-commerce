@@ -5,6 +5,9 @@ export const products = [
       url: "wireless-headphones",
       img: [
         "/assets/Wireless_headphones.jpeg",
+        "/assets/Wireless_headphones-slider2.png",
+        "/assets/Wireless_headphones-slider3.png",
+        "/assets/Wireless_headphones-slider4.png",
         
       ],
       description: "Immerse yourself in high-fidelity sound with active noise cancellation.",
@@ -17,7 +20,10 @@ export const products = [
       name: "Smartwatch Series 8",
       url: "smartwatch",
       img: [
-        "/assets/Series-8.jpg",
+        "/assets/Series-8.png",
+        "/assets/Series-8-slide2.png",
+        "/assets/Series-8-slide3.png",
+        "/assets/Series-8-slide4.png",
 
       ],
       description: "Track your health, fitness, and notifications with a sleek design.",
@@ -46,6 +52,9 @@ export const products = [
       url: "smart-tv",
       img: [
         "/assets/Smart-tv.webp",
+        "/public/assets/Smart-tv-slide2.jpg",
+        "/public/assets/Smart-tv-slide3.jpg",
+        "/public/assets/Smart-tv-slide4.jpg",
 
       ],
       description: "Cinematic visuals with HDR and voice control compatibility.",
@@ -58,7 +67,8 @@ export const products = [
       name: "Ergonomic Office Chair",
       url: "office-chair",
       img: [
-        "/assets/Office-chair.jpg",
+        "/public/assets/Office-chair.png",
+        "/public/assets/Office-chair-slide2.png",
 
       ],
       description: "Adjustable lumbar support and breathable mesh for all-day comfort.",
@@ -72,6 +82,9 @@ export const products = [
       url: "gaming-laptop",
       img: [
         "/assets/Gaming-laptop.jpeg",
+        "/assets/Gaming-laptop-slide2.jpg",
+        "/assets/Gaming-laptop-slide3.jpg",
+        "/assets/Gaming-laptop-slide4.jpg",
 
       ],
       description: "High-performance gaming with a powerful GPU and fast refresh rate.",
@@ -85,6 +98,7 @@ export const products = [
       url: "camera",
       img: [
         "/assets/DSLR-camera.jpg",
+        "/assets/DSLR-camera-slide2.webp",
 
       ],
       description: "Capture stunning images with 24MP and 4K video recording.",

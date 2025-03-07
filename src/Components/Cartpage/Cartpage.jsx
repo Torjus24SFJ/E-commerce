@@ -23,8 +23,9 @@ const CartPage = ({ checkout, setCheckout, setCartCount }) => {
 
   return (
     <section className="font-inter grid grid-rows-2 place-items-center text-black">
+        <h4 className="font-bold text-[36px]">Checkout</h4>
+        <hr className="text-black w-[100%]"/>
       <div className="flex flex-col justify-items-start">
-        <h4 className="font-bold text-[26px]">Checkout</h4>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 p-6">
           {checkout.map((item, index) => (
             <div
@@ -55,7 +56,7 @@ const CartPage = ({ checkout, setCheckout, setCartCount }) => {
             </div>
           ))}
         </div>
-        <div className="border-2 border-[#cbcbcb] bg-[#f1f1f1] p-8 mt-10">
+        <div className="border-2 border-[#cbcbcb] min-w-200 bg-[#f1f1f1] p-8 mt-10">
           <h4 className="mb-8 font-bold">
             Total: <span className="text-[#10b981]">{totalPrice}</span> kr
           </h4>
@@ -66,7 +67,7 @@ const CartPage = ({ checkout, setCheckout, setCartCount }) => {
         </div>
         <div className="flex flex-col gap-2 mt-8">
           <button
-            className="bg-[#353535] text-[#f1f1f1] rounded-full p-2 font-bold cursor-pointer"
+            className="bg-[#353535] text-[#f1f1f1] hover:bg-[#2b2a2a] rounded-full p-2 font-bold cursor-pointer"
             onClick={handleCheckOut}
           >
             Checkout

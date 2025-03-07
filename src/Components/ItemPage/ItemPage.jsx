@@ -63,17 +63,17 @@ export function ItemPage({
   }
 
   return (
-    <section className="text-black flex flex-col justify-center items-center gap-4 sm-20 md:flex-row">
+    <section className="text-black flex flex-col justify-center items-center gap-4 pt-30 sm-20 md:flex-row">
       <IoIosArrowBack 
       size={30} 
       className="opacity-55 hover:opacity-100 cursor-pointer"
       onClick={handlePreviousImage}
       />
-      <div className="w-120 h-120 flex items-center">
+      <div className="min-w-120 max-w-200 h-120 flex items-center justify-center">
         <img
           src={correctProduct[0].img[imageIndex]}
           alt={correctProduct[0].name}
-          className="w-fit"
+          className="w-contain h-100"
         />
       </div>
       <IoIosArrowForward
