@@ -81,7 +81,7 @@ const ProductCard = ({
         <button
           onClick={handleAddToCart}
           disabled={stock === 0}
-          className="rounded-[5px] p-2 text-[12px] w-fit bg-gray-800 text-white font-semibold hover:bg-gray-700 cursor-pointer"
+          className="rounded-[5px] p-2 text-[12px] w-fit bg-gray-700 hover:bg-gray-800 text-white font-semibold cursor-pointer"
         >
           Add to Cart
         </button>

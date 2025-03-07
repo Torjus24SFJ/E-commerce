@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { MdCancel } from "react-icons/md";
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa6";
 
 const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
   const totalPrice = checkout
@@ -29,6 +31,14 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
         )
       );
     }
+
+    // const handleIncreaseAmount = () => {
+
+    // }
+
+    // const handleDecreaseAmount = () => {
+
+    // }
   };
 
   return (
@@ -53,13 +63,26 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
                   {" "}
                   <span className="font-bold">Quantity:</span> {item.amount}
                 </p>
-                <p className="font-semibold text-[14px] text-[#10b981]">
-                  {item.price} kr
+                <p className="font-semibold text-[14px]">
+                  <span className="text-[#10b981]">{item.price} </span>
+                  kr
                 </p>
-                <div className="flex flex-row justify-end text-neutral-400 cursor-pointer">
+                <div className="flex flex-row justify-end text-neutral-400 transition hover:text-neutral-600 cursor-pointer">
                   <MdCancel
                     size={20}
                     onClick={() => handleCancelItem(item.url)}
+                  />
+                </div>
+                <div className="flex gap-2 text-neutral-400 w-20 h-20 items-center justify-center">
+                  <FaPlus 
+                  size={15}
+                  className="transition hover:text-neutral-600 cursor-pointer"
+                  // onClick={handleIncreaseAmount}
+                  />
+                  <FaMinus 
+                  size={15}
+                  className="transition hover:text-neutral-600 cursor-pointer"
+                  // onClick={handleDecreaseAmount}
                   />
                 </div>
               </div>
@@ -77,7 +100,7 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
         </div>
         <div className="flex flex-col gap-2 mt-8">
           <button
-            className="bg-[#353535] text-[#f1f1f1] hover:bg-[#2b2a2a] rounded-full p-2 font-bold cursor-pointer"
+            className="bg-gray-800 hover:bg-gray-900 text-[#f1f1f1] rounded-full p-2 font-bold cursor-pointer"
             onClick={handleCheckOut}
           >
             Checkout
@@ -89,4 +112,3 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
 };
 
 export default CartPage;
-

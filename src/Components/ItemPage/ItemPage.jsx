@@ -77,7 +77,7 @@ export function ItemPage({
     <section className="text-black flex flex-col justify-center items-center gap-4 pt-30 sm-20 md:flex-row">
       <IoIosArrowBack 
       size={30} 
-      className="opacity-45 hover:opacity-100 cursor-pointer"
+      className="opacity-45 hover:opacity-100 transition hover:scale-120 cursor-pointer"
       onClick={handlePreviousImage}
       />
       <div className="w-100 h-100 flex items-center justify-center">
@@ -89,7 +89,7 @@ export function ItemPage({
       </div>
       <IoIosArrowForward
         size={30}
-        className="opacity-45 hover:opacity-100 cursor-pointer"
+        className="opacity-45 hover:opacity-100 transition hover:scale-120 cursor-pointer"
         onClick={handleNextImage}
       />
       <div className="w-100 h-100 p-8 flex flex-col gap-4 justify-center">
@@ -111,7 +111,7 @@ export function ItemPage({
         <button
           onClick={handleAddToCart}
           disabled={correctProduct[0].stock === 0}
-          className="rounded-[5px] p-2 text-[12px] w-fit bg-gray-800 text-white font-semibold hover:bg-gray-700 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="rounded-[5px] p-2 text-[12px] w-fit bg-gray-700 text-white font-semibold hover:bg-gray-800 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           Add to Cart
         </button>
