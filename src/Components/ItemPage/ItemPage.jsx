@@ -55,11 +55,22 @@ export function ItemPage({
   };
 
   const handleNextImage = () => {
-      setImageIndex((prev) => (prev + 1) % correctProduct[0].img.length) 
+     setImageIndex((prevIndex) => {
+      const nextIndex = prevIndex + 1;
+      if (nextIndex >= correctProduct[0].img.length) {
+        return 0
+      }
+      return nextIndex;
+     })
   }
 
   const handlePreviousImage = () => {
-      setImageIndex((prev) => prev === 0 ? correctProduct[0].img.length - 1 : prev - 1)
+    setImageIndex((prevIndex) => {
+      if (prevIndex === 0) {
+        return correctProduct[0].img.length - 1;
+      }
+      return prevIndex - 1;
+    })
   }
 
   return (
