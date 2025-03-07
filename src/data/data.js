@@ -52,9 +52,9 @@ export const products = [
       url: "smart-tv",
       img: [
         "/assets/Smart-tv.webp",
-        "/public/assets/Smart-tv-slide2.jpg",
-        "/public/assets/Smart-tv-slide3.jpg",
-        "/public/assets/Smart-tv-slide4.jpg",
+        "/assets/Smart-tv-slide2.jpg",
+        "/assets/Smart-tv-slide3.jpg",
+        "/assets/Smart-tv-slide4.jpg",
 
       ],
       description: "Cinematic visuals with HDR and voice control compatibility.",
@@ -67,8 +67,8 @@ export const products = [
       name: "Ergonomic Office Chair",
       url: "office-chair",
       img: [
-        "/public/assets/Office-chair.png",
-        "/public/assets/Office-chair-slide2.png",
+        "/assets/Office-chair.png",
+        "/assets/Office-chair-slide2.png",
 
       ],
       description: "Adjustable lumbar support and breathable mesh for all-day comfort.",
