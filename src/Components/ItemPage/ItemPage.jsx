@@ -77,7 +77,7 @@ export function ItemPage({
     <section className="text-black flex flex-col justify-center items-center gap-4 pt-30 sm-20 md:flex-row">
       <IoIosArrowBack 
       size={30} 
-      className="opacity-55 hover:opacity-100 cursor-pointer"
+      className="opacity-45 hover:opacity-100 cursor-pointer"
       onClick={handlePreviousImage}
       />
       <div className="w-100 h-100 flex items-center justify-center">
@@ -89,7 +89,7 @@ export function ItemPage({
       </div>
       <IoIosArrowForward
         size={30}
-        className="opacity-55 hover:opacity-100 cursor-pointer"
+        className="opacity-45 hover:opacity-100 cursor-pointer"
         onClick={handleNextImage}
       />
       <div className="w-100 h-100 p-8 flex flex-col gap-4 justify-center">

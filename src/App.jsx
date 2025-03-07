@@ -11,6 +11,7 @@ function App() {
   const [cartCount, setCartCount] = useState(0);
   const [checkout, setCheckout] = useState([]);
   const [products, setProducts] = useState(initialProducts);
+ 
 
   console.log(products)
 
