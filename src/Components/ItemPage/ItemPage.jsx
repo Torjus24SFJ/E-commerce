@@ -69,13 +69,12 @@ export function ItemPage({
       className="opacity-55 hover:opacity-100 cursor-pointer"
       onClick={handlePreviousImage}
       />
-      <div className="min-w-120 max-w-200 h-120 flex items-center justify-center">
+      <div className="w-100 h-100 flex items-center justify-center">
         <img
           src={correctProduct[0].img[imageIndex]}
           alt={correctProduct[0].name}
-          className="w-cover h-100 scale-75"
+          className="w-cover h-cover"
         />
-        {/*!TODO Fix image scaling so its less..random*/}
       </div>
       <IoIosArrowForward
         size={30}
