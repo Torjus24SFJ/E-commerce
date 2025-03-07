@@ -44,7 +44,7 @@ export const products = [
       description: "RGB backlit keys with fast response for the ultimate gaming experience.",
       stock: 15,
       price: 599,
-      rating: 4.5,
+      rating: 3.5,
     },
     {
       id: 4,
@@ -60,7 +60,7 @@ export const products = [
       description: "Cinematic visuals with HDR and voice control compatibility.",
       stock: 5,
       price: 12499,
-      rating: 5,
+      rating: 4,
     },
     {
       id: 5,

@@ -15,7 +15,7 @@ export function Navbar({ cartCount }) {
             <li className="flex gap-2 align-middle">
               <FaCartShopping size={20} />
               <span
-                className={`text-[#606060] text-[14px] ${
+                className={`text-[#18181b] text-[14px] ${
                   cartCount > 0 ? "text-green-500" : ""
                 }`}
               >
