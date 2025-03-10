@@ -5,7 +5,10 @@ import { FaMinus } from "react-icons/fa6";
 
 const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
   const totalPrice = checkout
-    .reduce((acc, cartProduct) => acc + cartProduct.price * cartProduct.amount, 0)
+    .reduce(
+      (acc, cartProduct) => acc + cartProduct.price * cartProduct.amount,
+      0
+    )
     .toLocaleString();
 
   const navigation = useNavigate();
@@ -17,7 +20,9 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
   };
 
   const handleCancelItem = (remove) => {
-    const removeProduct = checkout.find((cartProduct) => cartProduct.url === remove);
+    const removeProduct = checkout.find(
+      (cartProduct) => cartProduct.url === remove
+    );
     if (!removeProduct) return;
 
     setCheckout(checkout.filter((cartProduct) => cartProduct.url !== remove));
@@ -35,24 +40,54 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
   };
 
   const handleIncreaseAmount = (cartProductUrl) => {
-    const cartProduct = checkout.find((cartProduct) => cartProduct.url === cartProductUrl);
+    const cartProduct = checkout.find(
+      (cartProduct) => cartProduct.url === cartProductUrl
+    );
     if (!cartProduct || cartProduct.stock <= 0) return;
 
     setCheckout((prevCheckout) =>
       prevCheckout.map((cartProduct) =>
-        cartProduct.url === cartProductUrl ? { ...cartProduct, amount: cartProduct.amount + 1 } : cartProduct
+        cartProduct.url === cartProductUrl
+          ? { ...cartProduct, amount: cartProduct.amount + 1 }
+          : cartProduct
       )
     );
-  };
+    setCartCount((oldCartCount) => oldCartCount + 1);
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.url === cartProductUrl
+            ? { ...product, stock: product.stock - 1 }
+            : product
+        )
+      );
+    }
 
   const handleDecreaseAmount = (cartProductUrl) => {
-    const cartProduct = checkout.find((cartProduct) => cartProduct.url === cartProductUrl)
-    if (!cartProduct || cartProduct.stock <= 0) return
+    const cartProduct = checkout.find(
+      (cartProduct) => cartProduct.url === cartProductUrl
+    );
+    if (!cartProduct || cartProduct.amount <= 0) return;
 
     if (cartProduct.amount === 1) {
-      handleCancelItem(cartProductUrl)
+      handleCancelItem(cartProductUrl);
+    } else {
+      setCheckout((prevCheckout) =>
+        prevCheckout.map((cartProduct) =>
+          cartProduct.url === cartProductUrl
+            ? { ...cartProduct, amount: cartProduct.amount - 1 }
+            : cartProduct
+        )
+      )
+      setCartCount((oldCartCount) => oldCartCount - 1);
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.url === cartProductUrl
+            ? { ...product, stock: product.stock + 1 }
+            : product
+        )
+      );
     }
-  }
+  };
 
   return (
     <section className="font-inter grid grid-rows-2 place-items-center text-black">
@@ -71,10 +106,13 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
                 className="w-full h-full object-contain p-2"
               />
               <div className="">
-                <h4 className="font-semibold text-[16px]">{cartProduct.name}</h4>
+                <h4 className="font-semibold text-[16px]">
+                  {cartProduct.name}
+                </h4>
                 <p className="text-[14px]">
                   {" "}
-                  <span className="font-bold">Quantity:</span> {cartProduct.amount}
+                  <span className="font-bold">Quantity:</span>{" "}
+                  {cartProduct.amount}
                 </p>
                 <p className="font-semibold text-[14px]">
                   <span className="text-[#10b981]">{cartProduct.price} </span>
@@ -95,7 +133,7 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
                   <FaMinus
                     size={15}
                     className="transition hover:text-neutral-600 cursor-pointer"
-                    onClick={handleDecreaseAmount}
+                    onClick={() => handleDecreaseAmount(cartProduct.url)}
                   />
                 </div>
               </div>
