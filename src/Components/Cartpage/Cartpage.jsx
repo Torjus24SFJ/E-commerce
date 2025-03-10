@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { MdCancel } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
+import { getShippingDate } from "../../data/shippingdate";
 
 const CartPage = ({ cartItems, setCartItems, setCartCount, setProducts }) => {
   const totalPrice = cartItems
@@ -144,9 +145,9 @@ const CartPage = ({ cartItems, setCartItems, setCartCount, setProducts }) => {
           <h4 className="mb-8 font-bold">
             Total: <span className="text-[#10b981]">{totalPrice}</span> kr
           </h4>
-          <p>Shipping</p>
-          <p>Arrives Tue, Jul 20 - Thu, Jul 22</p>
-          <p>Pickup</p>
+          <p className="font-bold">Estimated Arrival</p>
+          <p className="font-regular">{getShippingDate()}</p>
+          <p className="font-bold">Pickup</p>
           <p className="underline">Find a Store</p>
         </div>
         <div className="flex flex-col gap-2 mt-8">
