@@ -32,8 +32,8 @@ export function ItemPage({
 
     setCartCount((oldCartCount) => oldCartCount + 1);
 
-    const existingInCheckout = cartItems.find((item) => item.url === url);
-    if (!existingInCheckout) {
+    const itemInCart = cartItems.find((item) => item.url === url);
+    if (!itemInCart) {
       setCartItems((oldCartItems) => [
         ...oldCartItems,
         { ...correctProduct[0], amount: 1 },
