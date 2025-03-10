@@ -14,12 +14,13 @@ export function ItemPage({
   const selectedProduct = products.filter((product) => product.url === url);
   const [addItem, setAddItem] = useState({ ...selectedProduct[0], amount: 0 });
   const [imageIndex, setImageIndex] = useState(0);
+  // const [loadedImage, setLoadedImage] = useState(false);
 
   console.log("This is product: ", selectedProduct[0]?.url);
   console.log("This is path: ", url);
   console.log("Adding item: ", addItem);
 
-  //! Preloading Images for carousel
+  //* Preloading Images for carousel
 
   useEffect(() => {
     const preloadImages = () => {
