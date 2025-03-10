@@ -5,10 +5,11 @@ import { FaMinus } from "react-icons/fa6";
 
 const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
   const totalPrice = checkout
-    .reduce((acc, item) => acc + item.price * item.amount, 0)
+    .reduce((acc, cartProduct) => acc + cartProduct.price * cartProduct.amount, 0)
     .toLocaleString();
 
   const navigation = useNavigate();
+
   const handleCheckOut = () => {
     setCheckout([]);
     setCartCount(0);
@@ -16,10 +17,10 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
   };
 
   const handleCancelItem = (remove) => {
-    const removeProduct = checkout.find((item) => item.url === remove);
+    const removeProduct = checkout.find((cartProduct) => cartProduct.url === remove);
     if (!removeProduct) return;
 
-    setCheckout(checkout.filter((item) => item.url !== remove));
+    setCheckout(checkout.filter((cartProduct) => cartProduct.url !== remove));
     setCartCount((oldCartCount) => oldCartCount - removeProduct.amount);
 
     if (removeProduct) {
@@ -31,15 +32,27 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
         )
       );
     }
-
-    // const handleIncreaseAmount = () => {
-
-    // }
-
-    // const handleDecreaseAmount = () => {
-
-    // }
   };
+
+  const handleIncreaseAmount = (cartProductUrl) => {
+    const cartProduct = checkout.find((cartProduct) => cartProduct.url === cartProductUrl);
+    if (!cartProduct || cartProduct.stock <= 0) return;
+
+    setCheckout((prevCheckout) =>
+      prevCheckout.map((cartProduct) =>
+        cartProduct.url === cartProductUrl ? { ...cartProduct, amount: cartProduct.amount + 1 } : cartProduct
+      )
+    );
+  };
+
+  const handleDecreaseAmount = (cartProductUrl) => {
+    const cartProduct = checkout.find((cartProduct) => cartProduct.url === cartProductUrl)
+    if (!cartProduct || cartProduct.stock <= 0) return
+
+    if (cartProduct.amount === 1) {
+      handleCancelItem(cartProductUrl)
+    }
+  }
 
   return (
     <section className="font-inter grid grid-rows-2 place-items-center text-black">
@@ -47,42 +60,42 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
       <hr className="text-black w-[100%]" />
       <div className="flex flex-col justify-items-start">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 p-6">
-          {checkout.map((item, index) => (
+          {checkout.map((cartProduct, index) => (
             <div
-              key={item.id + index + item.name}
+              key={cartProduct.id + index + cartProduct.name}
               className="w-100 grid grid-rows-[250px_1fr] justify-center text-center p-4 m-8"
             >
               <img
-                src={item.img[0]}
+                src={cartProduct.img[0]}
                 alt="product-image"
                 className="w-full h-full object-contain p-2"
               />
               <div className="">
-                <h4 className="font-semibold text-[16px]">{item.name}</h4>
+                <h4 className="font-semibold text-[16px]">{cartProduct.name}</h4>
                 <p className="text-[14px]">
                   {" "}
-                  <span className="font-bold">Quantity:</span> {item.amount}
+                  <span className="font-bold">Quantity:</span> {cartProduct.amount}
                 </p>
                 <p className="font-semibold text-[14px]">
-                  <span className="text-[#10b981]">{item.price} </span>
+                  <span className="text-[#10b981]">{cartProduct.price} </span>
                   kr
                 </p>
                 <div className="flex flex-row justify-end text-neutral-400 transition hover:text-neutral-600 cursor-pointer">
                   <MdCancel
                     size={20}
-                    onClick={() => handleCancelItem(item.url)}
+                    onClick={() => handleCancelItem(cartProduct.url)}
                   />
                 </div>
                 <div className="flex gap-2 text-neutral-400 w-20 h-20 items-center justify-center">
-                  <FaPlus 
-                  size={15}
-                  className="transition hover:text-neutral-600 cursor-pointer"
-                  // onClick={handleIncreaseAmount}
+                  <FaPlus
+                    size={15}
+                    className="transition hover:text-neutral-600 cursor-pointer"
+                    onClick={() => handleIncreaseAmount(cartProduct.url)}
                   />
-                  <FaMinus 
-                  size={15}
-                  className="transition hover:text-neutral-600 cursor-pointer"
-                  // onClick={handleDecreaseAmount}
+                  <FaMinus
+                    size={15}
+                    className="transition hover:text-neutral-600 cursor-pointer"
+                    onClick={handleDecreaseAmount}
                   />
                 </div>
               </div>
