@@ -11,24 +11,24 @@ export function ItemPage({
   setCartCount,
 }) {
   const { url } = useParams();
-  const correctProduct = products.filter((product) => product.url === url);
-  const [addItem, setAddItem] = useState({ ...correctProduct[0], amount: 0 });
+  const selectedProduct = products.filter((product) => product.url === url);
+  const [addItem, setAddItem] = useState({ ...selectedProduct[0], amount: 0 });
   const [imageIndex, setImageIndex] = useState(0)
 
-  console.log("This is product: ", correctProduct[0]?.url);
+  console.log("This is product: ", selectedProduct[0]?.url);
   console.log("This is path: ", url);
   console.log("Adding item: ", addItem);
 
   useEffect(() => {
-    console.log("Stock:", correctProduct[0]?.stock);
-  }, [correctProduct]);
+    console.log("Stock:", selectedProduct[0]?.stock);
+  }, [selectedProduct]);
 
-  if (!products || correctProduct.length === 0) {
+  if (!products || selectedProduct.length === 0) {
     return <h4 className="item-not-found">Item not found!</h4>;
   }
 
   const handleAddToCart = () => {
-    if (correctProduct[0].stock < 1) return;
+    if (selectedProduct[0].stock < 1) return;
 
     setCartCount((oldCartCount) => oldCartCount + 1);
 
@@ -36,7 +36,7 @@ export function ItemPage({
     if (!itemInCart) {
       setCartItems((oldCartItems) => [
         ...oldCartItems,
-        { ...correctProduct[0], amount: 1 },
+        { ...selectedProduct[0], amount: 1 },
       ]);
     } else {
       setCartItems((oldCartItems) =>
@@ -57,7 +57,7 @@ export function ItemPage({
   const handleNextImage = () => {
      setImageIndex((prevIndex) => {
       const nextIndex = prevIndex + 1;
-      if (nextIndex >= correctProduct[0].img.length) {
+      if (nextIndex >= selectedProduct[0].img.length) {
         return 0
       }
       return nextIndex;
@@ -67,7 +67,7 @@ export function ItemPage({
   const handlePreviousImage = () => {
     setImageIndex((prevIndex) => {
       if (prevIndex === 0) {
-        return correctProduct[0].img.length - 1;
+        return selectedProduct[0].img.length - 1;
       }
       return prevIndex - 1;
     })
@@ -82,8 +82,8 @@ export function ItemPage({
       />
       <div className="w-100 h-100 flex items-center justify-center">
         <img
-          src={correctProduct[0].img[imageIndex]}
-          alt={correctProduct[0].name}
+          src={selectedProduct[0].img[imageIndex]}
+          alt={selectedProduct[0].name}
           className="w-cover h-cover"
         />
       </div>
@@ -93,24 +93,24 @@ export function ItemPage({
         onClick={handleNextImage}
       />
       <div className="w-100 h-100 p-8 flex flex-col gap-4 justify-center">
-        <h2 className="text-[24px] font-semibold">{correctProduct[0].name}</h2>
+        <h2 className="text-[24px] font-semibold">{selectedProduct[0].name}</h2>
         <p className="text-neutral-500 text-[14px]">
-          {correctProduct[0].description}
+          {selectedProduct[0].description}
         </p>
         <Rating
           name="half-rating"
-          defaultValue={correctProduct[0].rating}
+          defaultValue={selectedProduct[0].rating}
           precision={0.5}
         />
         <p className="font-semibold text-[24px]">
-          <span className="text-[#10b981]">{correctProduct[0].price}</span> kr
+          <span className="text-[#10b981]">{selectedProduct[0].price}</span> kr
         </p>
         <p className="text-[12px] text-gray-500 font-semibold">
-          {correctProduct[0].stock} in stock
+          {selectedProduct[0].stock} in stock
         </p>
         <button
           onClick={handleAddToCart}
-          disabled={correctProduct[0].stock === 0}
+          disabled={selectedProduct[0].stock === 0}
           className="rounded-[5px] p-2 text-[12px] w-fit bg-gray-700 text-white font-semibold hover:bg-gray-800 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           Add to Cart
