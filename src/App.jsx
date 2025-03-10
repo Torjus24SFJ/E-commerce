@@ -41,7 +41,6 @@ function App() {
                 setCartItems={setCartItems}
                 products={products}
                 setProducts={setProducts}
-                
               />
             }
           />
@@ -50,11 +49,11 @@ function App() {
             path="products/:url"
             element={
               <ItemPage
-                products={products}
-                setCartCount={setCartCount}
-                cartItems={cartItems}
-                setCartItems={setCartItems}
-                setProducts={setProducts}
+              setCartCount={setCartCount}
+              cartItems={cartItems}
+              products={products}
+              setCartItems={setCartItems}
+              setProducts={setProducts}
               />
             }
           />

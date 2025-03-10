@@ -13,6 +13,7 @@ const ProductCard = ({
   cartItems,
   setCartItems,
   url,
+  selectedProducts,
   setProducts,
 }) => {
   const [addItem, setAddItem] = useState({
@@ -23,8 +24,10 @@ const ProductCard = ({
     amount: 0,
     url,
   });
+
+
   const handleAddToCart = () => {
-    if(stock < 1) return
+    if(selectedProducts < 1) return 
 
     setCartCount((oldCartCount) => oldCartCount + 1);
 
@@ -76,7 +79,9 @@ const ProductCard = ({
         </div>
         <p className="font-semibold"><span className="text-[#10b981]">{price}</span> kr</p>
         <p className="text-[12px] text-gray-500 font-semibold mb-[20px]">
-          {stock} in stock
+        {stock > 0
+            ? `${stock} in stock`
+            : "Out of stock"}
         </p>
         <button
           onClick={handleAddToCart}

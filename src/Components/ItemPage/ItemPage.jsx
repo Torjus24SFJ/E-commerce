@@ -13,7 +13,7 @@ export function ItemPage({
   const { url } = useParams();
   const selectedProduct = products.filter((product) => product.url === url);
   const [addItem, setAddItem] = useState({ ...selectedProduct[0], amount: 0 });
-  const [imageIndex, setImageIndex] = useState(0)
+  const [imageIndex, setImageIndex] = useState(0);
 
   console.log("This is product: ", selectedProduct[0]?.url);
   console.log("This is path: ", url);
@@ -55,14 +55,14 @@ export function ItemPage({
   };
 
   const handleNextImage = () => {
-     setImageIndex((prevIndex) => {
+    setImageIndex((prevIndex) => {
       const nextIndex = prevIndex + 1;
       if (nextIndex >= selectedProduct[0].img.length) {
-        return 0
+        return 0;
       }
       return nextIndex;
-     })
-  }
+    });
+  };
 
   const handlePreviousImage = () => {
     setImageIndex((prevIndex) => {
@@ -70,15 +70,15 @@ export function ItemPage({
         return selectedProduct[0].img.length - 1;
       }
       return prevIndex - 1;
-    })
-  }
+    });
+  };
 
   return (
     <section className="text-black flex flex-col justify-center items-center gap-4 pt-30 sm-20 md:flex-row">
-      <IoIosArrowBack 
-      size={30} 
-      className="opacity-45 hover:opacity-100 transition hover:scale-120 cursor-pointer"
-      onClick={handlePreviousImage}
+      <IoIosArrowBack
+        size={30}
+        className="opacity-45 hover:opacity-100 transition hover:scale-120 cursor-pointer"
+        onClick={handlePreviousImage}
       />
       <div className="w-100 h-100 flex items-center justify-center">
         <img
@@ -106,7 +106,9 @@ export function ItemPage({
           <span className="text-[#10b981]">{selectedProduct[0].price}</span> kr
         </p>
         <p className="text-[12px] text-gray-500 font-semibold">
-          {selectedProduct[0].stock} in stock
+          {selectedProduct[0].stock > 0
+            ? `${selectedProduct[0].stock} in stock`
+            : "Out of stock"}
         </p>
         <button
           onClick={handleAddToCart}
