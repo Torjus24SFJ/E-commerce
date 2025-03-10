@@ -3,8 +3,8 @@ import { MdCancel } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
 
-const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
-  const totalPrice = checkout
+const CartPage = ({ cartItems, setCartItems, setCartCount, setProducts }) => {
+  const totalPrice = cartItems
     .reduce(
       (acc, cartProduct) => acc + cartProduct.price * cartProduct.amount,
       0
@@ -14,18 +14,18 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
   const navigation = useNavigate();
 
   const handleCheckOut = () => {
-    setCheckout([]);
+    setCartItems([]);
     setCartCount(0);
     navigation("/confirm");
   };
 
   const handleCancelItem = (remove) => {
-    const removeProduct = checkout.find(
+    const removeProduct = cartItems.find(
       (cartProduct) => cartProduct.url === remove
     );
     if (!removeProduct) return;
 
-    setCheckout(checkout.filter((cartProduct) => cartProduct.url !== remove));
+    setCartItems(cartItems.filter((cartProduct) => cartProduct.url !== remove));
     setCartCount((oldCartCount) => oldCartCount - removeProduct.amount);
 
     if (removeProduct) {
@@ -39,14 +39,14 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
     }
   };
 
-  const handleIncreaseAmount = (cartProductUrl) => {
-    const cartProduct = checkout.find(
+  const handleIncreaseQuantity = (cartProductUrl) => {
+    const cartProduct = cartItems.find(
       (cartProduct) => cartProduct.url === cartProductUrl
     );
     if (!cartProduct || cartProduct.stock <= 0) return;
 
-    setCheckout((prevCheckout) =>
-      prevCheckout.map((cartProduct) =>
+    setCartItems((prevCartItems) =>
+      prevCartItems.map((cartProduct) =>
         cartProduct.url === cartProductUrl
           ? { ...cartProduct, amount: cartProduct.amount + 1 }
           : cartProduct
@@ -62,8 +62,8 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
       );
     }
 
-  const handleDecreaseAmount = (cartProductUrl) => {
-    const cartProduct = checkout.find(
+  const handleDecreaseQuantity = (cartProductUrl) => {
+    const cartProduct = cartItems.find(
       (cartProduct) => cartProduct.url === cartProductUrl
     );
     if (!cartProduct || cartProduct.amount <= 0) return;
@@ -71,8 +71,8 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
     if (cartProduct.amount === 1) {
       handleCancelItem(cartProductUrl);
     } else {
-      setCheckout((prevCheckout) =>
-        prevCheckout.map((cartProduct) =>
+      setCartItems((prevCartItems) =>
+        prevCartItems.map((cartProduct) =>
           cartProduct.url === cartProductUrl
             ? { ...cartProduct, amount: cartProduct.amount - 1 }
             : cartProduct
@@ -95,7 +95,7 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
       <hr className="text-black w-[100%]" />
       <div className="flex flex-col justify-items-start">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 p-6">
-          {checkout.map((cartProduct, index) => (
+          {cartItems.map((cartProduct, index) => (
             <div
               key={cartProduct.id + index + cartProduct.name}
               className="w-100 grid grid-rows-[250px_1fr] justify-center text-center p-4 m-8"
@@ -128,12 +128,12 @@ const CartPage = ({ checkout, setCheckout, setCartCount, setProducts }) => {
                   <FaPlus
                     size={15}
                     className="transition hover:text-neutral-600 cursor-pointer"
-                    onClick={() => handleIncreaseAmount(cartProduct.url)}
+                    onClick={() => handleIncreaseQuantity(cartProduct.url)}
                   />
                   <FaMinus
                     size={15}
                     className="transition hover:text-neutral-600 cursor-pointer"
-                    onClick={() => handleDecreaseAmount(cartProduct.url)}
+                    onClick={() => handleDecreaseQuantity(cartProduct.url)}
                   />
                 </div>
               </div>

@@ -9,7 +9,7 @@ import { products as initialProducts } from "./data/data";
 
 function App() {
   const [cartCount, setCartCount] = useState(0);
-  const [checkout, setCheckout] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState(initialProducts);
  
 
@@ -24,8 +24,8 @@ function App() {
             element={
               <ProductList
                 setCartCount={setCartCount}
-                checkout={checkout}
-                setCheckout={setCheckout}
+                cartItems={cartItems}
+                setCartItems={setCartItems}
                 products={products}
                 setProducts={setProducts}
               />
@@ -37,8 +37,8 @@ function App() {
               <Cartpage
                 cartCount={cartCount}
                 setCartCount={setCartCount}
-                checkout={checkout}
-                setCheckout={setCheckout}
+                cartItems={cartItems}
+                setCartItems={setCartItems}
                 products={products}
                 setProducts={setProducts}
                 
@@ -52,8 +52,8 @@ function App() {
               <ItemPage
                 products={products}
                 setCartCount={setCartCount}
-                checkout={checkout}
-                setCheckout={setCheckout}
+                cartItems={cartItems}
+                setCartItems={setCartItems}
                 setProducts={setProducts}
               />
             }

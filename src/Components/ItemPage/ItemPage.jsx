@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 
 export function ItemPage({
   products,
-  setCartCount,
-  setCheckout,
   setProducts,
-  checkout,
+  setCartItems,
+  cartItems,
+  setCartCount,
 }) {
   const { url } = useParams();
   const correctProduct = products.filter((product) => product.url === url);
@@ -32,15 +32,15 @@ export function ItemPage({
 
     setCartCount((oldCartCount) => oldCartCount + 1);
 
-    const existingInCheckout = checkout.find((item) => item.url === url);
+    const existingInCheckout = cartItems.find((item) => item.url === url);
     if (!existingInCheckout) {
-      setCheckout((oldCheckout) => [
-        ...oldCheckout,
+      setCartItems((oldCartItems) => [
+        ...oldCartItems,
         { ...correctProduct[0], amount: 1 },
       ]);
     } else {
-      setCheckout((oldCheckout) =>
-        oldCheckout.map((item) =>
+      setCartItems((oldCartItems) =>
+        oldCartItems.map((item) =>
           item.url === url ? { ...item, amount: item.amount + 1 } : item
         )
       );

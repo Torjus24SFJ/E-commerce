@@ -10,8 +10,8 @@ const ProductCard = ({
   img,
   rating,
   setCartCount,
-  checkout,
-  setCheckout,
+  cartItems,
+  setCartItems,
   url,
   setProducts,
 }) => {
@@ -29,10 +29,10 @@ const ProductCard = ({
     setCartCount((oldCartCount) => oldCartCount + 1);
 
     if (addItem.amount === 0) {
-        setCheckout((oldCheckout) => [...oldCheckout, { ...addItem, amount: 1 }]);
+        setCartItems((oldCartItems) => [...oldCartItems, { ...addItem, amount: 1 }]);
       } else {
-        setCheckout((oldCheckout) =>
-          oldCheckout.map((item) =>
+        setCartItems((oldCartItems) =>
+          oldCartItems.map((item) =>
             item.url === url ? { ...item, amount: item.amount + 1 } : item
           )
         );
@@ -48,9 +48,9 @@ const ProductCard = ({
   };
   
   useEffect(() => {
-    console.log("This is the checkout: ", checkout);
+    console.log("This is the checkout: ", cartItems);
     console.log(addItem);
-  }, [checkout, addItem]);
+  }, [cartItems, addItem]);
 
   return (
     <>
