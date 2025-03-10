@@ -14,14 +14,24 @@ export function ItemPage({
   const selectedProduct = products.filter((product) => product.url === url);
   const [addItem, setAddItem] = useState({ ...selectedProduct[0], amount: 0 });
   const [imageIndex, setImageIndex] = useState(0);
+  // const [loadedImage, setLoadedImage] = useState(false);
 
   console.log("This is product: ", selectedProduct[0]?.url);
   console.log("This is path: ", url);
   console.log("Adding item: ", addItem);
 
+  //! Preloading Images for carousel
+
   useEffect(() => {
-    console.log("Stock:", selectedProduct[0]?.stock);
+    const preloadImages = () => {
+      selectedProduct[0].img.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+      });
+    };
+    preloadImages();
   }, [selectedProduct]);
+ 
 
   if (!products || selectedProduct.length === 0) {
     return <h4 className="item-not-found">Item not found!</h4>;
@@ -53,6 +63,8 @@ export function ItemPage({
       )
     );
   };
+
+
 
   const handleNextImage = () => {
     setImageIndex((prevIndex) => {
