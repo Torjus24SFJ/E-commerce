@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
   const { handleAddToCart } = useCart();
 
   return (
-    <div className="product-card p-[10px] border-2 border-[#e9e9e9] rounded-[8px] bg-white text-black flex flex-col justify-between">
+    <div className="p-[10px] border-2 border-[#e9e9e9] rounded-[8px] bg-white text-black flex flex-col justify-between">
       <div className="flex justify-center">
         <Link to={`/products/${product.url}`}>
           <img

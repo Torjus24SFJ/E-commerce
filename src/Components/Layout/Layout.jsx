@@ -7,7 +7,7 @@ export function Layout({ children }) {
   return (
     <>
       <Navbar cartCount={cartCount} />
-      <main className="md:p-24 sm:p-12 p-8 grid gap-30">{children}</main>
+      <main className="p-4">{children}</main>
     </>
   );
 }

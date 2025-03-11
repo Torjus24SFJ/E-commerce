@@ -9,7 +9,7 @@ export function ItemPage() {
   const { products, handleAddToCart, setProducts } = useCart
   const selectedProduct = products.find((product) => product.url === url)
   const [imageIndex, setImageIndex] = useState(0);
-  const [userRating, setUserRating] = useState(selectedProduct[0]?.rating)
+  const [userRating, setUserRating] = useState(selectedProduct[0].rating)
 
   useEffect(() => {
     const preloadImages = () => {
