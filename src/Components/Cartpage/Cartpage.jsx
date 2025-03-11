@@ -20,25 +20,7 @@ const CartPage = ({ cartItems, setCartItems, setCartCount, setProducts }) => {
     navigation("/confirm");
   };
 
-  const handleCancelItem = (remove) => {
-    const removeProduct = cartItems.find(
-      (cartProduct) => cartProduct.url === remove
-    );
-    if (!removeProduct) return;
-
-    setCartItems(cartItems.filter((cartProduct) => cartProduct.url !== remove));
-    setCartCount((oldCartCount) => oldCartCount - removeProduct.amount);
-
-    if (removeProduct) {
-      setProducts((prevProducts) =>
-        prevProducts.map((product) =>
-          product.url === removeProduct.url
-            ? { ...product, stock: product.stock + removeProduct.amount }
-            : product
-        )
-      );
-    }
-  };
+ 
 
   const handleIncreaseQuantity = (cartProductUrl) => {
     const cartProduct = cartItems.find(

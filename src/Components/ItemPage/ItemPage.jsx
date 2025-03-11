@@ -64,14 +64,7 @@ export function ItemPage({
     });
   };
 
-  const handleChangeRating = (e, ratingValue) => {
-    setUserRating(ratingValue)
-    setProducts((prevProducts) => 
-      prevProducts.map((product) => 
-        product.url === url ? {...product, rating: ratingValue} : product
-          )
-        )
-      }
+  
 
   return (
     <section className="text-black flex flex-col justify-center items-center gap-4 pt-30 sm-20 md:flex-row">
