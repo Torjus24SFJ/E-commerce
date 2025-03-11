@@ -2,27 +2,18 @@ import { useParams } from "react-router-dom";
 import { Rating } from "@mui/material";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useEffect, useState } from "react";
+import { useCart } from "../../context/useCart";
 
-export function ItemPage({
-  products,
-  setProducts,
-  setCartItems,
-  cartItems,
-  setCartCount,
-}) {
+export function ItemPage() {
   const { url } = useParams();
-  const selectedProduct = products.filter((product) => product.url === url);
-  const [addItem, setAddItem] = useState({ ...selectedProduct[0], amount: 0 });
+  const { products, handleAddToCart, setProducts } = useCart
+  const selectedProduct = products.find((product) => product.url === url)
   const [imageIndex, setImageIndex] = useState(0);
-  const [userRating, setUserRating] = useState(selectedProduct[0].rating)
-
-  console.log("This is product: ", selectedProduct[0]?.url);
-  console.log("This is path: ", url);
-  console.log("Adding item: ", addItem);
+  const [userRating, setUserRating] = useState(selectedProduct[0]?.rating)
 
   useEffect(() => {
     const preloadImages = () => {
-      selectedProduct[0].img.forEach((src) => {
+      selectedProduct.img.forEach((src) => {
         const img = new Image();
         img.src = src;
       });
@@ -35,20 +26,19 @@ export function ItemPage({
     return <h4 className="item-not-found">Item not found!</h4>;
   }
 
- 
-    setAddItem((prev) => ({ ...prev, amount: prev.amount + 1 }));
-
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.url === url ? { ...product, stock: product.stock - 1 } : product
-      )
-    );
-  };
+  const handleChangeRating = (e, ratingValue) => {
+    setUserRating(ratingValue)
+    setProducts((prevProducts) => 
+      prevProducts.map((product) => 
+        product.url === product.url ? {...product, rating: ratingValue} : product
+          )
+        )
+      }
 
   const handleNextImage = () => {
     setImageIndex((prevIndex) => {
       const nextIndex = prevIndex + 1;
-      if (nextIndex >= selectedProduct[0].img.length) {
+      if (nextIndex >= selectedProduct.img.length) {
         return 0;
       }
       return nextIndex;
@@ -58,7 +48,7 @@ export function ItemPage({
   const handlePreviousImage = () => {
     setImageIndex((prevIndex) => {
       if (prevIndex === 0) {
-        return selectedProduct[0].img.length - 1;
+        return selectedProduct.img.length - 1;
       }
       return prevIndex - 1;
     });
@@ -74,8 +64,8 @@ export function ItemPage({
       />
       <div className="w-100 h-100 flex items-center justify-center">
         <img
-          src={selectedProduct[0].img[imageIndex]}
-          alt={selectedProduct[0].name}
+          src={selectedProduct.img[imageIndex]}
+          alt={selectedProduct.name}
           className="w-cover h-cover"
         />
       </div>
@@ -85,28 +75,28 @@ export function ItemPage({
         onClick={handleNextImage}
       />
       <div className="w-100 h-100 p-8 flex flex-col gap-4 justify-center">
-        <h2 className="text-[24px] font-semibold">{selectedProduct[0].name}</h2>
+        <h2 className="text-[24px] font-semibold">{selectedProduct.name}</h2>
         <p className="text-neutral-500 text-[14px]">
-          {selectedProduct[0].description}
+          {selectedProduct.description}
         </p>
         <Rating
           name={`rating-${url}`}
           value={userRating}         
-          defaultValue={selectedProduct[0].rating}
+          defaultValue={selectedProduct.rating}
           onChange={handleChangeRating} 
           precision={0.5}
         />
         <p className="font-semibold text-[24px]">
-          <span className="text-[#10b981]">{selectedProduct[0].price}</span> kr
+          <span className="text-[#10b981]">{selectedProduct.price}</span> kr
         </p>
         <p className="text-[12px] text-gray-500 font-semibold">
-          {selectedProduct[0].stock > 0
-            ? `${selectedProduct[0].stock} in stock`
+          {selectedProduct.stock > 0
+            ? `${selectedProduct.stock} in stock`
             : "Out of stock"}
         </p>
         <button
           onClick={handleAddToCart}
-          disabled={selectedProduct[0].stock === 0}
+          disabled={selectedProduct.stock === 0}
           className="rounded-[5px] p-2 text-[12px] w-fit bg-gray-700 text-white font-semibold hover:bg-gray-800 cursor-pointer disabled:bg-gray-400 disabled:cursor-default"
         >
           Add to Cart
