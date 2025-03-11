@@ -1,7 +1,9 @@
 import { getShippingDate } from "../../data/shippingdate";
 
 export function ConfirmPurchase() {
+
   console.log(getShippingDate())
+  
   return (
     <div className="text-black flex flex-col place-items-center gap-10">
       <h2 className="text-[34px] font-bold">Purchase complete!</h2>

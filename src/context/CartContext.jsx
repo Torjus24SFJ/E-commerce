@@ -1,12 +1,13 @@
 import { createContext, useState } from "react";
 import { products as initialProducts } from "../data/data";
 
-const CartContext = createContext();
+export const CartContext = createContext();    
 
 export function CartProvider({ children }) {
   const [products, setProducts] = useState(initialProducts);
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
+
 
   const handleAddToCart = (product) => {
     if (!product || product.stock < 1) return;
@@ -121,5 +122,4 @@ export function CartProvider({ children }) {
     </CartContext.Provider>
   );
 }
-
 
