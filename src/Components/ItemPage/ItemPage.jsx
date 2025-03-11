@@ -63,7 +63,6 @@ export function ItemPage({
       return prevIndex - 1;
     });
   };
-
   
 
   return (

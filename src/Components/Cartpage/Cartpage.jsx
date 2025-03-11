@@ -22,55 +22,8 @@ const CartPage = ({ cartItems, setCartItems, setCartCount, setProducts }) => {
 
  
 
-  const handleIncreaseQuantity = (cartProductUrl) => {
-    const cartProduct = cartItems.find(
-      (cartProduct) => cartProduct.url === cartProductUrl
-    );
-    if (!cartProduct || cartProduct.stock <= 0) return;
-
-    setCartItems((prevCartItems) =>
-      prevCartItems.map((cartProduct) =>
-        cartProduct.url === cartProductUrl
-          ? { ...cartProduct, amount: cartProduct.amount + 1 }
-          : cartProduct
-      )
-    );
-    setCartCount((oldCartCount) => oldCartCount + 1);
-      setProducts((prevProducts) =>
-        prevProducts.map((product) =>
-          product.url === cartProductUrl
-            ? { ...product, stock: product.stock - 1 }
-            : product
-        )
-      );
-    }
-
-  const handleDecreaseQuantity = (cartProductUrl) => {
-    const cartProduct = cartItems.find(
-      (cartProduct) => cartProduct.url === cartProductUrl
-    );
-    if (!cartProduct || cartProduct.amount <= 0) return;
-
-    if (cartProduct.amount === 1) {
-      handleCancelItem(cartProductUrl);
-    } else {
-      setCartItems((prevCartItems) =>
-        prevCartItems.map((cartProduct) =>
-          cartProduct.url === cartProductUrl
-            ? { ...cartProduct, amount: cartProduct.amount - 1 }
-            : cartProduct
-        )
-      )
-      setCartCount((oldCartCount) => oldCartCount - 1);
-      setProducts((prevProducts) =>
-        prevProducts.map((product) =>
-          product.url === cartProductUrl
-            ? { ...product, stock: product.stock + 1 }
-            : product
-        )
-      );
-    }
-  };
+  
+  
 
   return (
     <section className="font-inter grid grid-rows-2 place-items-center text-black">

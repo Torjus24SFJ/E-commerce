@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import { products as initialProducts } from "../data/data";
 
 const CartContext = createContext();
@@ -34,13 +34,55 @@ export function CartProvider({ children }) {
     );
   };
 
-  const handleChangeRating = (url, ratingValue) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.url === url ? { ...product, rating: ratingValue } : product
-      )
-    );
-  };
+  const handleIncreaseQuantity = (cartProductUrl) => {
+      const cartProduct = cartItems.find(
+        (cartProduct) => cartProduct.url === cartProductUrl
+      );
+      if (!cartProduct || cartProduct.stock <= 0) return;
+  
+      setCartItems((prevCartItems) =>
+        prevCartItems.map((cartProduct) =>
+          cartProduct.url === cartProductUrl
+            ? { ...cartProduct, amount: cartProduct.amount + 1 }
+            : cartProduct
+        )
+      );
+      setCartCount((oldCartCount) => oldCartCount + 1);
+        setProducts((prevProducts) =>
+          prevProducts.map((product) =>
+            product.url === cartProductUrl
+              ? { ...product, stock: product.stock - 1 }
+              : product
+          )
+        );
+      }
+  
+    const handleDecreaseQuantity = (cartProductUrl) => {
+      const cartProduct = cartItems.find(
+        (cartProduct) => cartProduct.url === cartProductUrl
+      );
+      if (!cartProduct || cartProduct.amount <= 0) return;
+  
+      if (cartProduct.amount === 1) {
+        handleCancelItem(cartProductUrl);
+      } else {
+        setCartItems((prevCartItems) =>
+          prevCartItems.map((cartProduct) =>
+            cartProduct.url === cartProductUrl
+              ? { ...cartProduct, amount: cartProduct.amount - 1 }
+              : cartProduct
+          )
+        )
+        setCartCount((prevCartCount) => prevCartCount - 1);
+        setProducts((prevProducts) =>
+          prevProducts.map((product) =>
+            product.url === cartProductUrl
+              ? { ...product, stock: product.stock + 1 }
+              : product
+          )
+        );
+      }
+    };
 
   const handleCancelItem = (url) => {
     const removeProduct = cartItems.find((item) => item.url === url);
@@ -66,9 +108,10 @@ export function CartProvider({ children }) {
         products,
         cartItems,
         cartCount,
-        handleAddToCart,  // Matches function name
-        handleChangeRating, // Matches function name
-        handleCancelItem, // Matches function name
+        handleAddToCart,  
+        handleIncreaseQuantity,
+        handleDecreaseQuantity, 
+        handleCancelItem,
         setCartItems,
         setCartCount,
         setProducts,
@@ -79,6 +122,4 @@ export function CartProvider({ children }) {
   );
 }
 
-export function useCart() {
-  return useContext(CartContext);
-}
+

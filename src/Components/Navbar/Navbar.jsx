@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 export function Navbar({ cartCount }) {
   return (
-    <>
       <nav>
         <ul className="flex flex-row justify-between font-bold fixed w-full bg-[#18181b] p-[20px] z-100">
           <Link to="/">
@@ -25,6 +24,5 @@ export function Navbar({ cartCount }) {
           </Link>
         </ul>
       </nav>
-    </>
   );
 }
