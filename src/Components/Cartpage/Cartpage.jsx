@@ -1,29 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import { MdCancel } from "react-icons/md";
-import { FaPlus } from "react-icons/fa6";
-import { FaMinus } from "react-icons/fa6";
+import { FaPlus, FaMinus } from "react-icons/fa6";
 import { getShippingDate } from "../../data/shippingdate";
+import { useCart } from "../../context/useCart";
 
-const CartPage = ({ cartItems, setCartItems, setCartCount, setProducts }) => {
+const CartPage = () => {
+  const {
+    cartItems,
+    handleCancelItem,
+    handleIncreaseQuantity,
+    handleDecreaseQuantity,
+    setCartItems,
+    setCartCount,
+  } = useCart();
+  const navigate = useNavigate();
+
   const totalPrice = cartItems
-    .reduce(
-      (acc, cartProduct) => acc + cartProduct.price * cartProduct.amount,
-      0
-    )
+    .reduce((acc, item) => acc + item.price * item.amount, 0)
     .toLocaleString();
-
-  const navigation = useNavigate();
 
   const handleCheckOut = () => {
     setCartItems([]);
     setCartCount(0);
-    navigation("/confirm");
+    navigate("/confirm");
   };
-
- 
-
-  
-  
 
   return (
     <section className="font-inter grid grid-rows-2 place-items-center text-black">
@@ -41,18 +41,16 @@ const CartPage = ({ cartItems, setCartItems, setCartCount, setProducts }) => {
                 alt="product-image"
                 className="w-full h-full object-contain p-2"
               />
-              <div className="">
+              <div>
                 <h4 className="font-semibold text-[16px]">
                   {cartProduct.name}
                 </h4>
                 <p className="text-[14px]">
-                  {" "}
                   <span className="font-bold">Quantity:</span>{" "}
                   {cartProduct.amount}
                 </p>
                 <p className="font-semibold text-[14px]">
-                  <span className="text-[#10b981]">{cartProduct.price} </span>
-                  kr
+                  <span className="text-[#10b981]">{cartProduct.price}</span> kr
                 </p>
                 <div className="flex flex-row justify-end text-neutral-400 transition hover:text-neutral-600 cursor-pointer">
                   <MdCancel
