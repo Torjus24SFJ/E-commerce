@@ -1,5 +1,5 @@
 import ProductCard from "../ProductCard/ProductCard";
-import { useCart } from "../../context/useCart"; // Adjust path
+import { useCart } from "../../context/useCart";
 
 const ProductList = () => {
   const { products } = useCart();
