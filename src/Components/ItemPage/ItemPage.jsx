@@ -14,12 +14,11 @@ export function ItemPage({
   const selectedProduct = products.filter((product) => product.url === url);
   const [addItem, setAddItem] = useState({ ...selectedProduct[0], amount: 0 });
   const [imageIndex, setImageIndex] = useState(0);
+  const [userRating, setUserRating] = useState(selectedProduct[0].rating)
 
   console.log("This is product: ", selectedProduct[0]?.url);
   console.log("This is path: ", url);
   console.log("Adding item: ", addItem);
-
-  //* Preloading Images for carousel
 
   useEffect(() => {
     const preloadImages = () => {
@@ -63,8 +62,6 @@ export function ItemPage({
     );
   };
 
-
-
   const handleNextImage = () => {
     setImageIndex((prevIndex) => {
       const nextIndex = prevIndex + 1;
@@ -83,6 +80,15 @@ export function ItemPage({
       return prevIndex - 1;
     });
   };
+
+  const handleChangeRating = (e, ratingValue) => {
+    setUserRating(ratingValue)
+    setProducts((prevProducts) => 
+      prevProducts.map((product) => 
+        product.url === url ? {...product, rating: ratingValue} : product
+          )
+        )
+      }
 
   return (
     <section className="text-black flex flex-col justify-center items-center gap-4 pt-30 sm-20 md:flex-row">
@@ -109,8 +115,10 @@ export function ItemPage({
           {selectedProduct[0].description}
         </p>
         <Rating
-          name="half-rating"
+          name={`rating-${url}`}
+          value={userRating}         
           defaultValue={selectedProduct[0].rating}
+          onChange={handleChangeRating} 
           precision={0.5}
         />
         <p className="font-semibold text-[24px]">
@@ -124,7 +132,7 @@ export function ItemPage({
         <button
           onClick={handleAddToCart}
           disabled={selectedProduct[0].stock === 0}
-          className="rounded-[5px] p-2 text-[12px] w-fit bg-gray-700 text-white font-semibold hover:bg-gray-800 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="rounded-[5px] p-2 text-[12px] w-fit bg-gray-700 text-white font-semibold hover:bg-gray-800 cursor-pointer disabled:bg-gray-400 disabled:cursor-default"
         >
           Add to Cart
         </button>

@@ -71,7 +71,7 @@ const ProductCard = ({
         <p className="font-medium text-[12px] mb-[10px]">{description}</p>
         <div className="mb-[10px]">
           <Rating
-            name="half-rating"
+            name={`rating-${url}`}
             defaultValue={rating}
             precision={0.5}
             readOnly
@@ -86,7 +86,7 @@ const ProductCard = ({
         <button
           onClick={handleAddToCart}
           disabled={stock === 0}
-          className="rounded-[5px] p-2 text-[12px] w-fit bg-gray-700 hover:bg-gray-800 text-white font-semibold cursor-pointer"
+          className="rounded-[5px] p-2 text-[12px] w-fit bg-gray-700 hover:bg-gray-800 text-white font-semibold cursor-pointer disabled:bg-gray-400 disabled:cursor-default"
         >
           Add to Cart
         </button>
