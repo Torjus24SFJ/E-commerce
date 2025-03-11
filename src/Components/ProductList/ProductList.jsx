@@ -1,18 +1,13 @@
 import ProductCard from "../ProductCard/ProductCard";
-// import { products } from "../../data/data";
+import { useCart } from "../../context/useCart"; // Adjust path
 
-const ProductList = ({ setCartCount, cartItems, setCartItems, products, setProducts }) => {
+const ProductList = () => {
+  const { products } = useCart();
+
   return (
     <div className="product-list grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-1">
       {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          {...product}
-          setCartCount={setCartCount}
-          cartItems={cartItems}
-          setCartItems={setCartItems}
-          setProducts={setProducts}
-        />
+        <ProductCard key={product.id} product={product} />
       ))}
     </div>
   );
