@@ -6,10 +6,10 @@ import { useCart } from "../../context/useCart";
 
 export function ItemPage() {
   const { url } = useParams();
-  const { products, handleAddToCart, setProducts } = useCart
+  const {products, handleAddToCart, setProducts} = useCart()
   const selectedProduct = products.find((product) => product.url === url)
   const [imageIndex, setImageIndex] = useState(0);
-  const [userRating, setUserRating] = useState(selectedProduct[0].rating)
+  const [userRating, setUserRating] = useState(selectedProduct.rating || 0)
 
   useEffect(() => {
     const preloadImages = () => {
@@ -22,7 +22,7 @@ export function ItemPage() {
   }, [selectedProduct]);
  
 
-  if (!products || selectedProduct.length === 0) {
+  if (!selectedProduct) {
     return <h4 className="item-not-found">Item not found!</h4>;
   }
 

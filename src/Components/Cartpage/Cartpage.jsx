@@ -37,7 +37,7 @@ const CartPage = () => {
               className="w-100 grid grid-rows-[250px_1fr] justify-center text-center p-4 m-8"
             >
               <img
-                src={cartProduct.img[0]}
+                src={cartProduct.img}
                 alt="product-image"
                 className="w-full h-full object-contain p-2"
               />
