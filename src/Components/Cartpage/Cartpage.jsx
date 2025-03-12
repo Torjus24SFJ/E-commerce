@@ -28,7 +28,7 @@ const CartPage = () => {
   return (
     <section className="font-inter grid grid-rows-2 place-items-center text-black">
       <h4 className="font-bold text-[34px]">Checkout</h4>
-      <hr className="text-black w-[100%]" />
+      <hr className="text-black w-[100%]"/>
       <div className="flex flex-col justify-items-start">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 p-6">
           {cartItems.map((cartProduct, index) => (
@@ -37,7 +37,7 @@ const CartPage = () => {
               className="w-100 grid grid-rows-[250px_1fr] justify-center text-center p-4 m-8"
             >
               <img
-                src={cartProduct.img}
+                src={cartProduct.img[0]}
                 alt="product-image"
                 className="w-full h-full object-contain p-2"
               />

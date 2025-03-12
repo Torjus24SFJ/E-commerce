@@ -3,6 +3,7 @@ import { getShippingDate } from "../../data/shippingdate";
 export function ConfirmPurchase() {
 
   console.log(getShippingDate())
+
   
   return (
     <div className="text-black flex flex-col place-items-center gap-10">
