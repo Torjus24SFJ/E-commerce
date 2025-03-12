@@ -1,13 +1,18 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { products as initialProducts } from "../data/data";
 
-export const CartContext = createContext();    
+export const CartContext = createContext(); 
 
 export function CartProvider({ children }) {
   const [products, setProducts] = useState(initialProducts);
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
 
+  useEffect(() => {
+    console.log("This is products:", products)
+    console.log("This is items in cart:", cartItems)
+    console.log("This is number of items in cart:", cartCount)
+  },[products, cartItems, cartCount])
 
   const handleAddToCart = (product) => {
     if (!product || product.stock < 1) return;
