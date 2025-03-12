@@ -1,7 +1,9 @@
 import { FaCartShopping } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useCart } from "../../context/useCart";
 
-export function Navbar({ cartCount }) {
+export function Navbar() {
+  const {cartCount} = useCart()
   return (
       <nav>
         <ul className="flex flex-row justify-between font-bold fixed w-full bg-[#18181b] p-[20px] z-[100]">

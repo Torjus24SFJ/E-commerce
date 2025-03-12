@@ -95,7 +95,7 @@ export function ItemPage() {
             : "Out of stock"}
         </p>
         <button
-          onClick={handleAddToCart}
+          onClick={() => handleAddToCart(selectedProduct)}
           disabled={selectedProduct.stock === 0}
           className="rounded-[5px] p-2 text-[12px] w-fit bg-gray-700 text-white font-semibold hover:bg-gray-800 cursor-pointer disabled:bg-gray-400 disabled:cursor-default"
         >
