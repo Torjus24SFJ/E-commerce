@@ -21,11 +21,6 @@ export function ItemPage() {
     preloadImages();
   }, [selectedProduct]);
  
-
-  if (!selectedProduct) {
-    return <h4 className="item-not-found">Item not found!</h4>;
-  }
-
   const handleChangeRating = (e, ratingValue) => {
     setUserRating(ratingValue)
     setProducts((prevProducts) => 
