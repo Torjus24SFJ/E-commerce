@@ -8,23 +8,9 @@ export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
 
-  //* Total number of product in cart
-  const getCartQuantity = (url) => {
-    const item = cartItems.find((item) => item.url === url);
-    return item ? item.amount : 0;
-  };
-
-  //* Total stock of product available
-  const getMaxStock = (url) => {
-    const product = initialProducts.find((p) => p.url === url);
-    return product ? product.stock : 0;
-  };
-
   const handleAddToCart = (product) => {
-    const cartQty = getCartQuantity(product.url);
-    const maxStock = getMaxStock(product.url);
-    if (!product || product.stock < 1 || cartQty >= maxStock) return;
-
+    console.log("handleAddToCart - received:", product);
+    if (!product || product.stock < 1) return;
     setCartCount((prev) => prev + 1);
     const itemInCart = cartItems.find((item) => item.url === product.url);
     if (!itemInCart) {
@@ -44,10 +30,6 @@ export function CartProvider({ children }) {
   };
 
   const handleIncreaseQuantity = (url) => {
-    const cartQty = getCartQuantity(url);
-    const maxStock = getMaxStock(url);
-    if (cartQty >= maxStock) return;
-
     setCartItems((prev) =>
       prev.map((item) =>
         item.url === url ? { ...item, amount: item.amount + 1 } : item
@@ -99,8 +81,6 @@ export function CartProvider({ children }) {
         setCartItems,
         setCartCount,
         setProducts,
-        getCartQuantity, 
-        getMaxStock,    
       }}
     >
       {children}
