@@ -8,15 +8,17 @@ export function ItemPage() {
   const { url } = useParams();
   const { products, handleAddToCart, setProducts } = useCart();
 
-  if (!products) return <h4>Loading products...</h4>;
-
-  const selectedProduct = products.find((product) => product.url === url);
-  if (!selectedProduct) return <h4 className="item-not-found">Item not found!</h4>;
-
   const [imageIndex, setImageIndex] = useState(0);
-  const [userRating, setUserRating] = useState(selectedProduct.rating || 0);
+  const [userRating, setUserRating] = useState(0); 
 
   useEffect(() => {
+    if (!products || !products.length) return;
+
+    const selectedProduct = products.find((product) => product.url === url);
+    if (!selectedProduct) return;
+
+    setUserRating(selectedProduct.rating || 0);
+
     const preloadImages = () => {
       selectedProduct.img.forEach((src) => {
         const img = new Image();
@@ -24,7 +26,12 @@ export function ItemPage() {
       });
     };
     preloadImages();
-  }, [selectedProduct]);
+  }, [products, url]); 
+
+  if (!products) return <h4>Loading products...</h4>;
+
+  const selectedProduct = products.find((product) => product.url === url);
+  if (!selectedProduct) return <h4 className="item-not-found">Item not found!</h4>;
 
   const handleNextImage = () => {
     setImageIndex((prevIndex) => {
