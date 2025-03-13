@@ -1,112 +1,89 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import { products as initialProducts } from "../data/data";
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const CartContext = createContext(); 
+export const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [products, setProducts] = useState(initialProducts);
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
 
-  useEffect(() => {
-    console.log("This is products:", products)
-    console.log("This is items in cart:", cartItems)
-    console.log("This is number of items in cart:", cartCount)
-  },[products, cartItems, cartCount])
+  //* Total number of product in cart
+  const getCartQuantity = (url) => {
+    const item = cartItems.find((item) => item.url === url);
+    return item ? item.amount : 0;
+  };
+
+  //* Total stock of product available
+  const getMaxStock = (url) => {
+    const product = initialProducts.find((p) => p.url === url);
+    return product ? product.stock : 0;
+  };
 
   const handleAddToCart = (product) => {
-    if (!product || product.stock < 1) return;
+    const cartQty = getCartQuantity(product.url);
+    const maxStock = getMaxStock(product.url);
+    if (!product || product.stock < 1 || cartQty >= maxStock) return;
 
-    setCartCount((prevCartCount) => prevCartCount + 1);
-
+    setCartCount((prev) => prev + 1);
     const itemInCart = cartItems.find((item) => item.url === product.url);
     if (!itemInCart) {
-      setCartItems((prevCartItems) => [
-        ...prevCartItems,
-        { ...product, amount: 1 },
-      ]);
+      setCartItems((prev) => [...prev, { ...product, amount: 1 }]);
     } else {
-      setCartItems((prevCartItems) =>
-        prevCartItems.map((item) =>
+      setCartItems((prev) =>
+        prev.map((item) =>
           item.url === product.url ? { ...item, amount: item.amount + 1 } : item
         )
       );
     }
-
-    setProducts((prevProducts) =>
-      prevProducts.map((p) =>
+    setProducts((prev) =>
+      prev.map((p) =>
         p.url === product.url ? { ...p, stock: p.stock - 1 } : p
       )
     );
   };
 
-  const handleIncreaseQuantity = (cartProductUrl) => {
-      const cartProduct = cartItems.find(
-        (cartProduct) => cartProduct.url === cartProductUrl
-      );
-      if (!cartProduct || cartProduct.stock <= 0) return;
-  
-      setCartItems((prevCartItems) =>
-        prevCartItems.map((cartProduct) =>
-          cartProduct.url === cartProductUrl
-            ? { ...cartProduct, amount: cartProduct.amount + 1 }
-            : cartProduct
-        )
-      );
-      setCartCount((oldCartCount) => oldCartCount + 1);
-        setProducts((prevProducts) =>
-          prevProducts.map((product) =>
-            product.url === cartProductUrl
-              ? { ...product, stock: product.stock - 1 }
-              : product
-          )
-        );
-      }
-  
-    const handleDecreaseQuantity = (cartProductUrl) => {
-      const cartProduct = cartItems.find(
-        (cartProduct) => cartProduct.url === cartProductUrl
-      );
-      if (!cartProduct || cartProduct.amount <= 0) return;
-  
-      if (cartProduct.amount === 1) {
-        handleCancelItem(cartProductUrl);
-      } else {
-        setCartItems((prevCartItems) =>
-          prevCartItems.map((cartProduct) =>
-            cartProduct.url === cartProductUrl
-              ? { ...cartProduct, amount: cartProduct.amount - 1 }
-              : cartProduct
-          )
-        )
-        setCartCount((prevCartCount) => prevCartCount - 1);
-        setProducts((prevProducts) =>
-          prevProducts.map((product) =>
-            product.url === cartProductUrl
-              ? { ...product, stock: product.stock + 1 }
-              : product
-          )
-        );
-      }
-    };
+  const handleIncreaseQuantity = (url) => {
+    const cartQty = getCartQuantity(url);
+    const maxStock = getMaxStock(url);
+    if (cartQty >= maxStock) return;
 
-  const handleCancelItem = (url) => {
-    const removeProduct = cartItems.find((item) => item.url === url);
-    if (!removeProduct) return;
-
-    setCartItems((prevCartItems) =>
-      prevCartItems.filter((item) => item.url !== url)
-    );
-    setCartCount((prevCount) => prevCount - removeProduct.amount);
-
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.url === url
-          ? { ...product, stock: product.stock + removeProduct.amount }
-          : product
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.url === url ? { ...item, amount: item.amount + 1 } : item
       )
     );
+    setCartCount((prev) => prev + 1);
+    setProducts((prev) =>
+      prev.map((p) => (p.url === url ? { ...p, stock: p.stock - 1 } : p))
+    );
+  };
+
+  const handleDecreaseQuantity = (url) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.url === url && item.amount > 1
+          ? { ...item, amount: item.amount - 1 }
+          : item
+      )
+    );
+    setCartCount((prev) => (prev > 0 ? prev - 1 : 0));
+    setProducts((prev) =>
+      prev.map((p) => (p.url === url ? { ...p, stock: p.stock + 1 } : p))
+    );
+  };
+
+  const handleCancelItem = (url) => {
+    const item = cartItems.find((item) => item.url === url);
+    if (item) {
+      setCartCount((prev) => prev - item.amount);
+      setCartItems((prev) => prev.filter((item) => item.url !== url));
+      setProducts((prev) =>
+        prev.map((p) =>
+          p.url === url ? { ...p, stock: p.stock + item.amount } : p
+        )
+      );
+    }
   };
 
   return (
@@ -115,17 +92,18 @@ export function CartProvider({ children }) {
         products,
         cartItems,
         cartCount,
-        handleAddToCart,  
+        handleAddToCart,
         handleIncreaseQuantity,
-        handleDecreaseQuantity, 
+        handleDecreaseQuantity,
         handleCancelItem,
         setCartItems,
         setCartCount,
         setProducts,
+        getCartQuantity, 
+        getMaxStock,    
       }}
     >
       {children}
     </CartContext.Provider>
   );
 }
-

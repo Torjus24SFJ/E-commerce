@@ -7,11 +7,13 @@ import { useCart } from "../../context/useCart";
 const CartPage = () => {
   const {
     cartItems,
-    handleCancelItem,
-    handleIncreaseQuantity,
-    handleDecreaseQuantity,
     setCartItems,
     setCartCount,
+    handleIncreaseQuantity,
+    handleDecreaseQuantity,
+    handleCancelItem,
+    getCartQuantity,
+    getMaxStock,
   } = useCart();
   const navigate = useNavigate();
 
@@ -28,51 +30,55 @@ const CartPage = () => {
   return (
     <section className="font-inter grid grid-rows-2 place-items-center text-black">
       <h4 className="font-bold text-[34px]">Checkout</h4>
-      <hr className="text-black w-[100%]"/>
+      <hr className="text-black w-[100%]" />
       <div className="flex flex-col justify-items-start">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 p-6">
-          {cartItems.map((cartProduct, index) => (
-            <div
-              key={cartProduct.id + index + cartProduct.name}
-              className="w-100 grid grid-rows-[250px_1fr] justify-center text-center p-4 m-8"
-            >
-              <img
-                src={cartProduct.img[0]}
-                alt="product-image"
-                className="w-full h-full object-contain p-2"
-              />
-              <div>
-                <h4 className="font-semibold text-[16px]">
-                  {cartProduct.name}
-                </h4>
-                <p className="text-[14px]">
-                  <span className="font-bold">Quantity:</span>{" "}
-                  {cartProduct.amount}
-                </p>
-                <p className="font-semibold text-[14px]">
-                  <span className="text-[#10b981]">{cartProduct.price}</span> kr
-                </p>
-                <div className="flex flex-row justify-end text-neutral-400 transition hover:text-neutral-600 cursor-pointer">
-                  <MdCancel
-                    size={20}
-                    onClick={() => handleCancelItem(cartProduct.url)}
-                  />
-                </div>
-                <div className="flex gap-2 text-neutral-400 w-20 h-20 items-center justify-center">
-                  <FaPlus
-                    size={15}
-                    className="transition hover:text-neutral-600 cursor-pointer"
-                    onClick={() => handleIncreaseQuantity(cartProduct.url)}
-                  />
-                  <FaMinus
-                    size={15}
-                    className="transition hover:text-neutral-600 cursor-pointer"
-                    onClick={() => handleDecreaseQuantity(cartProduct.url)}
-                  />
+          {cartItems.map((cartProduct, index) => {
+            const cartQty = getCartQuantity(cartProduct.url);
+            const maxStock = getMaxStock(cartProduct.url);
+            const isIncreaseDisabled = cartQty >= maxStock;
+            return (
+              <div
+                key={cartProduct.id + index + cartProduct.name}
+                className="w-100 grid grid-rows-[250px_1fr] justify-center text-center p-4 m-8"
+              >
+                <img
+                  src={cartProduct.img[0]}
+                  alt="product-image"
+                  className="w-full h-full object-contain p-2"
+                />
+                <div>
+                  <h4 className="font-semibold text-[16px]">{cartProduct.name}</h4>
+                  <p className="text-[14px]">
+                    <span className="font-bold">Quantity:</span> {cartProduct.amount}
+                  </p>
+                  <p className="font-semibold text-[14px]">
+                    <span className="text-[#10b981]">{cartProduct.price}</span> kr
+                  </p>
+                  <div className="flex flex-row justify-end text-neutral-400 transition hover:text-neutral-600 cursor-pointer">
+                    <MdCancel
+                      size={20}
+                      onClick={() => handleCancelItem(cartProduct.url)}
+                    />
+                  </div>
+                  <div className="flex gap-2 text-neutral-400 w-20 h-20 items-center justify-center">
+                    <FaPlus
+                      size={15}
+                      className={`transition hover:text-neutral-600 ${
+                        isIncreaseDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+                      }`}
+                      onClick={() => !isIncreaseDisabled && handleIncreaseQuantity(cartProduct.url)}
+                    />
+                    <FaMinus
+                      size={15}
+                      className="transition hover:text-neutral-600 cursor-pointer"
+                      onClick={() => handleDecreaseQuantity(cartProduct.url)}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         <div className="border-2 border-[#cbcbcb] sm:min-w-120 lg:min-w-150 xl:min-w-200 bg-[#f1f1f1] p-8 mt-10">
           <h4 className="mb-8 font-bold">
