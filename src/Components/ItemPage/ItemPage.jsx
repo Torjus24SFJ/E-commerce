@@ -6,7 +6,7 @@ import { useCart } from "../../context/useCart";
 
 export function ItemPage() {
   const { url } = useParams();
-  const { products, handleAddToCart, getCartQuantity, getMaxStock, setProducts } = useCart();
+  const { products, handleAddToCart, setProducts } = useCart();
 
   if (!products) return <h4>Loading products...</h4>;
 
@@ -16,9 +16,9 @@ export function ItemPage() {
   const [imageIndex, setImageIndex] = useState(0);
   const [userRating, setUserRating] = useState(0);
 
-  const cartQty = getCartQuantity(url);
-  const maxStock = getMaxStock(url);
-  const isAddDisabled = cartQty >= maxStock;
+  // const cartQty = getCartQuantity(url);
+  // const maxStock = getMaxStock(url);
+  // const isAddDisabled = cartQty >= maxStock;
 
   useEffect(() => {
     const preloadImages = () => {
