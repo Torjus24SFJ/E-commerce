@@ -41,29 +41,28 @@ export function ItemPage() {
   };
 
   const addToCart = () => {
-    console.log("Adding to cart from ItemPage:", selectedProduct);
     handleAddToCart(selectedProduct);
   };
 
   return (
     <section className="text-black flex flex-col justify-center items-center gap-4 pt-30 sm-20 md:flex-row">
+      <div className="flex items-center gap-10">
       <IoIosArrowBack
-        size={30}
-        className="opacity-45 hover:opacity-100 transition hover:scale-120 cursor-pointer"
+        className="opacity-45 hover:opacity-100 transition hover:scale-120 cursor-pointer size-8"
         onClick={handlePreviousImage}
-      />
-      <div className="w-100 h-100 flex items-center justify-center">
+        />
+      <div className="flex items-center justify-center w-60 h-60 sm:w-60 sm:h-60 lg:w-85 lg:h-85">
         <img
           src={selectedProduct.img[imageIndex]}
           alt={selectedProduct.name}
           className="w-cover h-cover"
-        />
+          />
       </div>
       <IoIosArrowForward
-        size={30}
-        className="opacity-45 hover:opacity-100 transition hover:scale-120 cursor-pointer"
+        className="opacity-45 hover:opacity-100 transition hover:scale-120 cursor-pointer size-8"
         onClick={handleNextImage}
-      />
+        />
+        </div>
       <div className="w-100 h-100 p-8 flex flex-col gap-4 justify-center">
         <h2 className="text-[24px] font-semibold">{selectedProduct.name}</h2>
         <p className="text-neutral-500 text-[14px]">

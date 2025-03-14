@@ -10,7 +10,7 @@ export function CartProvider({ children }) {
   const [cartCount, setCartCount] = useState(0);
 
   const handleAddToCart = (product) => {
-    console.log("handleAddToCart - received:", product);
+    console.log("Product added to cart:", product);
     if (!product || product.stock < 1) return;
     setCartCount((prev) => prev + 1);
     const itemInCart = cartItems.find((item) => item.url === product.url);
@@ -33,6 +33,7 @@ export function CartProvider({ children }) {
   const handleIncreaseQuantity = (url) => {
     const product = products.find((product) => product.url === url);
     if (product.stock <= 0) return;
+    console.log("Product added to cart:", product);
     setCartItems((prev) =>
       prev.map((item) =>
         item.url === url ? { ...item, amount: item.amount + 1 } : item
