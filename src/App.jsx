@@ -10,7 +10,7 @@ function App() {
   return (
     <Router>
       <CartProvider>
-        <main className="flex flex-col gap-20">
+        <main className="flex flex-col gap-30">
         <Layout />
         <Routes>
           <Route path="/" element={<ProductList />} />
