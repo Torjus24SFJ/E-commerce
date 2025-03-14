@@ -1,37 +1,25 @@
 import { useParams } from "react-router-dom";
 import { Rating } from "@mui/material";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "../../context/useCart";
+import { useRating } from "../../hooks/useRating";
 
 export function ItemPage() {
   const { url } = useParams();
-  const { products, handleAddToCart, setProducts } = useCart();
+  const { products, handleAddToCart } = useCart();
 
   const [imageIndex, setImageIndex] = useState(0);
-  const [userRating, setUserRating] = useState(0); 
+  const { userRating, handleChangeRating } = useRating(url, 0);
 
-  useEffect(() => {
-    if (!products || !products.length) return;
-
+  useEffect(() => { // after render =>
     const selectedProduct = products.find((product) => product.url === url);
-    if (!selectedProduct) return;
-
-    setUserRating(selectedProduct.rating || 0);
-
-    const preloadImages = () => {
-      selectedProduct.img.forEach((src) => {
-        const img = new Image();
-        img.src = src;
-      });
-    };
-    preloadImages();
-  }, [products, url]); 
-
-  if (!products) return <h4>Loading products...</h4>;
+    if (selectedProduct && userRating !== selectedProduct.rating) { // check if initialRating(0) not equal to data rating =>
+      handleChangeRating(selectedProduct.rating);  // sets rating to current rating
+    }
+  }, [products, url, userRating, handleChangeRating]);
 
   const selectedProduct = products.find((product) => product.url === url);
-  if (!selectedProduct) return <h4 className="item-not-found">Item not found!</h4>;
 
   const handleNextImage = () => {
     setImageIndex((prevIndex) => {
@@ -57,15 +45,6 @@ export function ItemPage() {
     handleAddToCart(selectedProduct);
   };
 
-  const handleChangeRating = (e, ratingValue) => {
-    setUserRating(ratingValue);
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.url === url ? { ...product, rating: ratingValue } : product
-      )
-    );
-  };
-
   return (
     <section className="text-black flex flex-col justify-center items-center gap-4 pt-30 sm-20 md:flex-row">
       <IoIosArrowBack
@@ -87,18 +66,22 @@ export function ItemPage() {
       />
       <div className="w-100 h-100 p-8 flex flex-col gap-4 justify-center">
         <h2 className="text-[24px] font-semibold">{selectedProduct.name}</h2>
-        <p className="text-neutral-500 text-[14px]">{selectedProduct.description}</p>
+        <p className="text-neutral-500 text-[14px]">
+          {selectedProduct.description}
+        </p>
         <Rating
           name={`rating-${url}`}
           value={userRating}
-          onChange={handleChangeRating}
+          onChange={(e, newValue) => handleChangeRating(newValue)}
           precision={0.5}
         />
         <p className="font-semibold text-[24px]">
           <span className="text-[#10b981]">{selectedProduct.price}</span> kr
         </p>
         <p className="text-[12px] text-gray-500 font-semibold">
-          {selectedProduct.stock > 0 ? `${selectedProduct.stock} in stock` : "Out of stock"}
+          {selectedProduct.stock > 0
+            ? `${selectedProduct.stock} in stock`
+            : "Out of stock"}
         </p>
         <button
           onClick={addToCart}
