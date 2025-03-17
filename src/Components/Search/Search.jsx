@@ -9,7 +9,7 @@ export function Search() {
         setQuery("");
     }
   return (
-    <div className="w-screen flex justify-items-end m-4">
+    <div className="w-fit flex justify-items-end m-4 text-white">
     <form onSubmit={handleSearch} className="flex">
       <input className="bg-black p-2 text-neutral-500 focus:outline-none" type="text" placeholder="Search..." value={query} onChange={(e) => setQuery(e.target.value)}/>
     </form>

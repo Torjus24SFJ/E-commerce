@@ -13,7 +13,7 @@ function App() {
       <CartProvider>
         <main className="flex flex-col gap-20">
           <Layout />
-          <Search />
+          {/* <Search /> */}
           <Routes>
             <Route path="/" element={<ProductList />} />
             <Route path="cart" element={<Cartpage />} />
